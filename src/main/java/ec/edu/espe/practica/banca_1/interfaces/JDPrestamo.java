@@ -7,6 +7,7 @@ package ec.edu.espe.practica.banca_1.interfaces;
 
 import ec.edu.espe.practica.banca_1.clases.Clientes;
 import ec.edu.espe.practica.banca_1.clases.Cuenta;
+import ec.edu.espe.practica.banca_1.clases.Prestamo;
 import javax.swing.JOptionPane;
 
 /**
@@ -226,6 +227,8 @@ public class JDPrestamo extends javax.swing.JDialog {
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
+        Prestamo objPrestamo= new Prestamo(0,0);
+        objPrestamo.monto();
       
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
