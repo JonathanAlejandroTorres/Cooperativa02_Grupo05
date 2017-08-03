@@ -7,6 +7,7 @@ package ec.edu.espe.practica.banca_1.clases;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,15 +20,17 @@ public class Prestamo {
     private ResultSet resultado;
     private double monto;
     private int tiempo;
+    private int interes;
 
-    public Prestamo(double monto, int tiempo) {
-        this.monto = monto;
-        this.tiempo = tiempo;
+    public Prestamo() {
+        this.monto = 0.0;
+        this.tiempo = 0;
+        this.interes = 0;
         conn = new Conexion();
     }
 
-    public int monto() {
-        
+    public double montoPromedio() {
+
         String[] Datos = new String[5];
         DefaultTableModel model = new DefaultTableModel();
         String cuenta = "10023";
@@ -56,7 +59,7 @@ public class Prestamo {
                 System.out.println("NUMERO  " + Datos[0]);
                 Datos[1] = resultado.getString(2);
                 System.out.println("SALDO " + Datos[1]);
-              // con esto ya puedo sacar el promedio 
+                // con esto ya puedo sacar el promedio 
             }
 
             System.out.println("");
@@ -65,7 +68,18 @@ public class Prestamo {
             //  model.addRow(Datos);
         } catch (SQLException ex) {
         }
+        double dividendo = Double.parseDouble(Datos[1]);
+        double divisor = Double.parseDouble(Datos[0]);
+        return dividendo / divisor;
+    }
 
-        return 0;
+    public void tablaAmortizacion(JComboBox tiemp) {
+        tiempo = Integer.parseInt(tiemp.getSelectedItem().toString());
+        if (tiempo <= 12) {
+            interes = 10;
+        } else {
+            interes = 16;
+        }
+
     }
 }

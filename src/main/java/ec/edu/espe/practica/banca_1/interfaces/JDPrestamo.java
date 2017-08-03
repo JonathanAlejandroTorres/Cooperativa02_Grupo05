@@ -15,7 +15,8 @@ import javax.swing.JOptionPane;
  * @author Alejandro Torres
  */
 public class JDPrestamo extends javax.swing.JDialog {
-    Cuenta cu=new Cuenta();
+
+    Cuenta cu = new Cuenta();
     Clientes obj = new Clientes();
 
     /**
@@ -209,7 +210,7 @@ public class JDPrestamo extends javax.swing.JDialog {
 
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         // TODO add your handling code here:
-        if(obj.validarCedula(txtCedula.getText()) == false){
+        if (obj.validarCedula(txtCedula.getText()) == false) {
             JOptionPane.showMessageDialog(null, "Cédula incorrecta");
             txtCedula.setText("");
         }
@@ -227,9 +228,24 @@ public class JDPrestamo extends javax.swing.JDialog {
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
-        Prestamo objPrestamo= new Prestamo(0,0);
-        objPrestamo.monto();
-      
+        int interes;
+        Prestamo objPrestamo = new Prestamo();
+        if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio())) {
+            JOptionPane.showMessageDialog(null, "Monto no disponible");
+
+        } else {
+            objPrestamo.tablaAmortizacion(jCBTiempoEstimado);
+         int tiempo = Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString());
+            System.out.println("que valor " + jCBTiempoEstimado.getSelectedItem());
+            if (tiempo <= 12) {
+                interes = 10;
+            } else {
+                interes = 16;
+            }
+
+        }
+
+
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
     private void txtSaldoActualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoActualKeyTyped
