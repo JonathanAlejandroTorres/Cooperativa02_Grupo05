@@ -21,9 +21,11 @@ public class Clientes {
     //Atributos para nuevo cliente
     private String Nombre;
     private String Cedula;
+    private String Genero;
+    private String Ingreso_Mensual;
     private int Codigo;
     private int control;
-    String[] Datos=new String[2];
+    String[] Datos=new String[4];
 
     public Clientes() {
         conn = new Conexion();
@@ -34,6 +36,8 @@ public class Clientes {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Cédula");
         model.addColumn("Nombre");
+        model.addColumn("Genero");
+        model.addColumn("Salario Mensual");
         Tabla.setModel(model);
         try {
             resultado = conn.ejecutarSQLSelect("select * from Cliente where CEDULA like '%"+Cedula+"%'");
@@ -41,6 +45,8 @@ public class Clientes {
                 while (resultado.next()) {
                     Datos[0] = resultado.getString(1);
                     Datos[1] = resultado.getString(2);
+                    Datos[2] = resultado.getString(3);
+                    Datos[3] = resultado.getString(4);
                     model.addRow(Datos);
                     control = 99;
                 }
@@ -74,11 +80,17 @@ public class Clientes {
     public void setCedula(String Cedula) {
         this.Cedula = Cedula;
     }
+      public void setGenero(String Genero) {
+        this.Genero = Genero;
+    }
+        public void setIngreso_Mensual(String Ingreso_Mensual) {
+        this.Ingreso_Mensual = Ingreso_Mensual;
+    }
        
     public void nuevoCliente(){
         if(control != 99){
-            conn.ejecutarSQL("INSERT INTO cliente(CEDULA,NOMBRE)" +
-                "VALUES ('"+Cedula+"','"+Nombre+"')"); 
+            conn.ejecutarSQL("INSERT INTO cliente(CEDULA,NOMBRE,GENERO,INGRESO_MENSUAL)" +
+                "VALUES ('"+Cedula+"','"+Nombre+"','"+Genero+"','"+Ingreso_Mensual+"')"); 
         }else{
             JOptionPane.showMessageDialog(null, "Cliente ya registrado con ese número de cédula");
         }
