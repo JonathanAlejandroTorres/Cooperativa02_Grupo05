@@ -159,9 +159,10 @@ public class JDPrestamo extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(lblContrasenia)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblContrasenia)
+                                .addComponent(jLabel3)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,14 +229,18 @@ public class JDPrestamo extends javax.swing.JDialog {
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
+        double[] tabla= new double[5];
         int interes;
         Prestamo objPrestamo = new Prestamo();
         if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio())) {
             JOptionPane.showMessageDialog(null, "Monto no disponible");
 
         } else {
-            objPrestamo.tablaAmortizacion(jCBTiempoEstimado);
-         int tiempo = Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString());
+            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,jTAmortizacion,
+                    Double.parseDouble(txtSaldo.getText()));
+            
+            ///
+            int tiempo = Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString());
             System.out.println("que valor " + jCBTiempoEstimado.getSelectedItem());
             if (tiempo <= 12) {
                 interes = 10;

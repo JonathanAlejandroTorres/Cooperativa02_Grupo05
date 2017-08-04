@@ -8,6 +8,7 @@ package ec.edu.espe.practica.banca_1.clases;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +22,7 @@ public class Prestamo {
     private double monto;
     private int tiempo;
     private int interes;
+    private double cuotaPagar;
 
     public Prestamo() {
         this.monto = 0.0;
@@ -73,13 +75,23 @@ public class Prestamo {
         return dividendo / divisor;
     }
 
-    public void tablaAmortizacion(JComboBox tiemp) {
+    public void tablaAmortizacion(JComboBox tiemp, JTable Mostrar, double valPrestamo) {
+        DefaultTableModel model = new DefaultTableModel();
+        String Datos[] = new String[5];
         tiempo = Integer.parseInt(tiemp.getSelectedItem().toString());
         if (tiempo <= 12) {
             interes = 10;
         } else {
             interes = 16;
         }
+        cuotaPagar = valPrestamo * 7;
+        Datos[0] =String.valueOf(cuotaPagar);
+        Datos[1] = String.valueOf(cuotaPagar);
+        Datos[2] = String.valueOf(cuotaPagar);
+        Datos[3] = String.valueOf(cuotaPagar);
+        Datos[4] = String.valueOf(cuotaPagar);
+        model.addRow(Datos);
+        Mostrar.setModel(model);
 
     }
 }
