@@ -16,9 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class JDPrestamo extends javax.swing.JDialog {
 
-    Cuenta cu = new Cuenta();
-    Clientes obj = new Clientes();
-
+  
     /**
      * Creates new form JDPrestamo
      */
@@ -185,9 +183,9 @@ public class JDPrestamo extends javax.swing.JDialog {
                     .addComponent(txtEstadoPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         btnPrestamoSolicitar.setText("SOLICITAR");
@@ -293,22 +291,18 @@ public class JDPrestamo extends javax.swing.JDialog {
         // TODO add your handling code here:
         double[] tabla= new double[5];
         int interes;
-        Prestamo objPrestamo = new Prestamo();
-        if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio())) {
+        jTAmortizacion.clearSelection();
+        Prestamo objPrestamo = new Prestamo(jTAmortizacion);
+        if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio(txtCedula.getText()))) {
             JOptionPane.showMessageDialog(null, "Monto no disponible");
 
         } else {
-            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,jTAmortizacion,
-                    Double.parseDouble(txtSaldo.getText()));
+            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,Double.parseDouble(txtSaldo.getText()));
             
             ///
             int tiempo = Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString());
             System.out.println("que valor " + jCBTiempoEstimado.getSelectedItem());
-            if (tiempo <= 12) {
-                interes = 10;
-            } else {
-                interes = 16;
-            }
+    
 
         }
 
