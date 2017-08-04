@@ -267,16 +267,6 @@ public class JDPrestamo extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
-    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
-        // TODO add your handling code here:
-        if (obj.validarCedula(txtCedula.getText()) == false) {
-            JOptionPane.showMessageDialog(null, "Cédula incorrecta");
-            txtCedula.setText("");
-        }
-    }//GEN-LAST:event_txtCedulaKeyTyped
-
-
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSaldoActionPerformed
