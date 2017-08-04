@@ -23,24 +23,24 @@ public class Prestamo {
     private int tiempo;
     private int interes;
     private double cuotaPagar;
-      DefaultTableModel model ;
+    DefaultTableModel model;
 
     public Prestamo(JTable Mostrar) {
         this.monto = 0.0;
         this.tiempo = 0;
         this.interes = 0;
-        model= (DefaultTableModel) Mostrar.getModel();
+        model = (DefaultTableModel) Mostrar.getModel();
         conn = new Conexion();
     }
 
     public double montoPromedio(String cedula) {
 
         String[] Datos = new String[5];
-      
-        
+
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
-            resultado = conn.ejecutarSQLSelect("select mov.codigo_movimiento,EXTRACT(MONTH from mov.fecha), EXTRACT(YEAR from mov.fecha)"
-                    + "from movimiento mov , where  codigo_cuenta = " + cedula+ " order by fecha  DESC LIMIT 1");
+            resultado = conn.ejecutarSQLSelect("select mov.codigo_movimiento,EXTRACT(MONTH from mov.fecha), "
+                    + "EXTRACT(YEAR from mov.fecha) , mov.CODIGO_CUENTA, mov.saldo from movimiento mov ,cuenta cue "
+                    + "where cue.codigo_cuenta= mov.codigo_cuenta and cue.cedula = " + cedula + " order by fecha  DESC LIMIT 1");
             while (resultado.next()) {
                 Datos[0] = resultado.getString(1);
                 System.out.println("codigo  " + Datos[0]);
@@ -48,12 +48,15 @@ public class Prestamo {
                 System.out.println("Mes  " + Datos[1]);
                 Datos[2] = resultado.getString(3);
                 System.out.println("Año  " + Datos[2]);
+                Datos[3] = resultado.getString(4);
+                System.out.println("codigo de cuenta  " + Datos[3]);
+                Datos[4] = resultado.getString(5);
+                System.out.println("Saldo " + Datos[4]);
 
-                //  model.addRow(Datos);
             }
-            // busco todos los datos luego comparo solo con los del ultimo mes 
-            // importante SELECT EXTRACT( YEAR_MONTH FROM `date` ) FROM `Table` WHERE Condition = 'Condition';
-            resultado = conn.ejecutarSQLSelect("select COUNT(*),SUM(saldo) from movimiento where  codigo_cuenta = " + cedula + " and EXTRACT(MONTH from fecha)= " + Datos[1] + " and EXTRACT(YEAR from fecha)=" + Datos[2] + "");
+
+            resultado = conn.ejecutarSQLSelect("select COUNT(*),SUM(saldo) from movimiento where  codigo_cuenta = "
+                    + Datos[3] + " and EXTRACT(MONTH from fecha)= " + Datos[1] + " and EXTRACT(YEAR from fecha)=" + Datos[2] + "");
             while (resultado.next()) {
                 Datos[0] = resultado.getString(1);
                 System.out.println("NUMERO  " + Datos[0]);
@@ -62,10 +65,6 @@ public class Prestamo {
                 // con esto ya puedo sacar el promedio 
             }
 
-            System.out.println("");
-            //  Mostrar.setModel(model);
-
-            //  model.addRow(Datos);
         } catch (SQLException ex) {
         }
         double dividendo = Double.parseDouble(Datos[1]);
@@ -74,7 +73,7 @@ public class Prestamo {
     }
 
     public void tablaAmortizacion(JComboBox tiemp, double valPrestamo) {
-       
+
         String Datos[] = new String[5];
         tiempo = Integer.parseInt(tiemp.getSelectedItem().toString());
         if (tiempo <= 12) {
@@ -89,7 +88,6 @@ public class Prestamo {
         Datos[3] = String.valueOf(cuotaPagar);
         Datos[4] = String.valueOf(cuotaPagar);
         model.addRow(Datos);
-       
 
     }
 }

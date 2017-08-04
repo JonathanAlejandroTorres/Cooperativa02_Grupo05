@@ -5,8 +5,7 @@
  */
 package ec.edu.espe.practica.banca_1.interfaces;
 
-import ec.edu.espe.practica.banca_1.clases.Clientes;
-import ec.edu.espe.practica.banca_1.clases.Cuenta;
+
 import ec.edu.espe.practica.banca_1.clases.Prestamo;
 import javax.swing.JOptionPane;
 
@@ -278,19 +277,16 @@ public class JDPrestamo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_txtSaldoActionPerformed
 
     private void btnPrestamoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSalirActionPerformed
-        // TODO add your handling code here:
-        //System.exit(0);
+       
         this.dispose();//CERRAR VENTANA
     }//GEN-LAST:event_btnPrestamoSalirActionPerformed
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
-        double[] tabla= new double[5];
-        int interes;
         jTAmortizacion.clearSelection();
         Prestamo objPrestamo = new Prestamo(jTAmortizacion);
         if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio(txtCedula.getText()))) {
