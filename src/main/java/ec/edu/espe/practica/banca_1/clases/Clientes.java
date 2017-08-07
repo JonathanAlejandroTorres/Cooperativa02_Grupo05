@@ -22,7 +22,7 @@ public class Clientes {
     private String Nombre;
     private String Cedula;
     private String Genero;
-    private String Ingreso_Mensual;
+    private double Ingreso_mensual;
     private int Codigo;
     private int control;
     String[] Datos=new String[4];
@@ -32,32 +32,68 @@ public class Clientes {
         control = 0;
     }
     
-    public void buscarClieentes(String Cedula, JTable Tabla){
+    
+    public int buscarClieentes(JTable Tabla){
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Cédula");
+        int band=0;
+        Datos[0]="-1";
+        model.addColumn("CÃ©dula");
         model.addColumn("Nombre");
         model.addColumn("Genero");
-        model.addColumn("Salario Mensual");
+        model.addColumn("Ingreso Mensual");
         Tabla.setModel(model);
         try {
             resultado = conn.ejecutarSQLSelect("select * from Cliente where CEDULA like '%"+Cedula+"%'");
-            if(resultado != null){
-                while (resultado.next()) {
+            while (resultado.next()) {
                     Datos[0] = resultado.getString(1);
                     Datos[1] = resultado.getString(2);
                     Datos[2] = resultado.getString(3);
                     Datos[3] = resultado.getString(4);
                     model.addRow(Datos);
-                    control = 99;
-                }
-                Tabla.setModel(model);
-            }else{
-                JOptionPane.showMessageDialog(null, "Cliente no registrado");
+                    band=1;
+                    control = 99;      
+            }
+            Tabla.setModel(model);
+            if(Datos[0]=="-1"){
+                 JOptionPane.showMessageDialog(null, "Cliente No Encontrado");
+                 control=0;
+                 band=0;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return band;
+    }
+    
+        public void listaClieentes(JTable Tabla){
+        DefaultTableModel model = new DefaultTableModel();
+        int band=0;
+        Datos[0]="-1";
+        model.addColumn("CÃ©dula");
+        model.addColumn("Nombre");
+        model.addColumn("Genero");
+        model.addColumn("Ingreso Mensual");
+        Tabla.setModel(model);
+        try {
+            resultado = conn.ejecutarSQLSelect("select * from Cliente");
+            while (resultado.next()) {
+                    Datos[0] = resultado.getString(1);
+                    Datos[1] = resultado.getString(2);
+                    Datos[2] = resultado.getString(3);
+                    Datos[3] = resultado.getString(4);
+                    model.addRow(Datos);
+                    Tabla.setModel(model);
+                      
+            }           
+            System.out.println(Datos[0]);
+            if(Datos[0]=="-1"){
+                 JOptionPane.showMessageDialog(null, "No hay Clientes registrados");                
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     
     public void generarCodigo(){
         String cod = "0";       
@@ -73,6 +109,8 @@ public class Clientes {
         }
     }
 
+    
+
     public void setNombre(String Nombre) {
         this.Nombre = Nombre;
     }
@@ -80,17 +118,29 @@ public class Clientes {
     public void setCedula(String Cedula) {
         this.Cedula = Cedula;
     }
-      public void setGenero(String Genero) {
+
+    public String getGenero() {
+        return Genero;
+    }
+
+    public void setGenero(String Genero) {
         this.Genero = Genero;
     }
-        public void setIngreso_Mensual(String Ingreso_Mensual) {
-        this.Ingreso_Mensual = Ingreso_Mensual;
+
+    public double getIngreso_mensual() {
+        return Ingreso_mensual;
     }
+
+    public void setIngreso_mensual(double Ingreso_mensual) {
+        this.Ingreso_mensual = Ingreso_mensual;
+    }
+       
+
        
     public void nuevoCliente(){
         if(control != 99){
             conn.ejecutarSQL("INSERT INTO cliente(CEDULA,NOMBRE,GENERO,INGRESO_MENSUAL)" +
-                "VALUES ('"+Cedula+"','"+Nombre+"','"+Genero+"','"+Ingreso_Mensual+"')"); 
+                "VALUES ('"+Cedula+"','"+Nombre+"','"+Genero+"','"+Ingreso_mensual+"')"); 
         }else{
             JOptionPane.showMessageDialog(null, "Cliente ya registrado con ese número de cédula");
         }
@@ -98,24 +148,32 @@ public class Clientes {
     
     public void actualizarCliente(){        
         if(control == 99){
-            if(Datos[1].equals(Nombre)){
-                JOptionPane.showMessageDialog(null, "No a modificado la información");
+            if(Datos[1].equals(Nombre) || Datos[3].equals(Ingreso_mensual)){
+                JOptionPane.showMessageDialog(null, "No a modificado la informaciÃ³n");
             }else{
-                conn.ejecutarSQL("UPDATE cliente set NOMBRE='"+Nombre+"' where CEDULA='"+Cedula+"'"); 
+                conn.ejecutarSQL("UPDATE cliente set NOMBRE='"+Nombre+"', INGRESO_MENSUAL="+Ingreso_mensual+" where CEDULA='"+Cedula+"'"); 
+                JOptionPane.showMessageDialog(null, "Cliente modificado");
             }
         }else{
             JOptionPane.showMessageDialog(null, "Cliente no registrado");
         }
     }
+
     
     public void borrarCliente(){
-        JOptionPane.showMessageDialog(null, "Cedula: "+Cedula);
-        resultado = conn.ejecutarSQLSelect("select * from Cliente where CEDULA like '%"+Cedula+"%'");
-        if(resultado != null){
-            conn.ejecutarSQL("DELETE FROM cliente WHERE CEDULA='"+Cedula+"'");
-        }else{
-            JOptionPane.showMessageDialog(null, "Cliente no registrado");
+       
+
+        int val=JOptionPane.showConfirmDialog(null,"Se borra el cliente con cedula: "+Cedula);
+        
+        if(val==0){
+            if(control == 99){
+                conn.ejecutarSQL("DELETE FROM cliente WHERE CEDULA='"+Cedula+"'");
+                JOptionPane.showMessageDialog(null, "Cliente borrado");
+            }else{
+                JOptionPane.showMessageDialog(null, "Cliente no registrado");
+            }
         }
+
     }
     
     public boolean validarCedula(String cedula){
