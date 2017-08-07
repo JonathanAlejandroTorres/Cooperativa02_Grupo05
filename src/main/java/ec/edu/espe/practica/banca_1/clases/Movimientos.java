@@ -94,10 +94,10 @@ public class Movimientos {
         return codigo;
     }
 
-    public void registrarMov(JTextField saldo) {
+    public void registrarMov(JTextField saldo,String cod) {
         float nuevoS = validarMonto(monto, tipo);
         conn.ejecutarSQL("INSERT INTO movimiento(CODIGO_MOVIMIENTO,CODIGO_CUENTA,TIPO,FECHA,MONTO,SALDO)"
-                + "VALUES ('" + codigo + "','" + cod_cuenta + "','" + tipo + "','" + currentTime + "','" + monto + "','" + nuevoS + "')");
+                + "VALUES ('" + cod + "','" + cod_cuenta + "','" + tipo + "','" + currentTime + "','" + monto + "','" + nuevoS + "')");
         conn.ejecutarSQL("UPDATE CUENTA SET SALDO ='" + nuevoS + "' WHERE CODIGO_CUENTA = '" + cod_cuenta + "'");
         JOptionPane.showMessageDialog(null, "Registro realizado con éxito \n Su nuevo Saldoes: " + nuevoS);
         saldo.setText(String.valueOf(nuevoS));

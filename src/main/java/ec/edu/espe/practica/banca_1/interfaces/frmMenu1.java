@@ -46,6 +46,9 @@ public class frmMenu1 extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jmiConCuenta = new javax.swing.JMenuItem();
         jmiConMovi = new javax.swing.JMenuItem();
+        jmPrestamos = new javax.swing.JMenu();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jmiSolicitarPrestamo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -162,6 +165,27 @@ public class frmMenu1 extends javax.swing.JFrame {
 
         jMenuBar1.add(jmVentas);
 
+        jmPrestamos.setBackground(new java.awt.Color(153, 153, 153));
+        jmPrestamos.setBorder(null);
+        jmPrestamos.setText("Prestamos");
+        jmPrestamos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmPrestamosMouseClicked(evt);
+            }
+        });
+        jmPrestamos.add(jSeparator4);
+
+        jmiSolicitarPrestamo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jmiSolicitarPrestamo.setText("Solicitar Prestamo");
+        jmiSolicitarPrestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSolicitarPrestamoActionPerformed(evt);
+            }
+        });
+        jmPrestamos.add(jmiSolicitarPrestamo);
+
+        jMenuBar1.add(jmPrestamos);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -232,6 +256,16 @@ public class frmMenu1 extends javax.swing.JFrame {
         //venta.setVisible(true);
     }//GEN-LAST:event_jmVentasMouseClicked
 
+    private void jmiSolicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSolicitarPrestamoActionPerformed
+        // TODO add your handling code here:
+        JDPrestamo prestamo = new JDPrestamo(this, true);
+        prestamo.setVisible(true);
+    }//GEN-LAST:event_jmiSolicitarPrestamoActionPerformed
+
+    private void jmPrestamosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmPrestamosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmPrestamosMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -275,8 +309,10 @@ public class frmMenu1 extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JMenu jmClientesEmpleados;
     private javax.swing.JMenu jmCoches;
+    private javax.swing.JMenu jmPrestamos;
     private javax.swing.JMenu jmSalir;
     private javax.swing.JMenu jmVentas;
     private javax.swing.JMenuItem jmiClientes;
@@ -284,5 +320,6 @@ public class frmMenu1 extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiConMovi;
     private javax.swing.JMenu jmiCuenta;
     private javax.swing.JMenuItem jmiRegistrarCoches;
+    private javax.swing.JMenuItem jmiSolicitarPrestamo;
     // End of variables declaration//GEN-END:variables
 }
