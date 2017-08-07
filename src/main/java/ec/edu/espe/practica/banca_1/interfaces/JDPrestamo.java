@@ -8,6 +8,7 @@ package ec.edu.espe.practica.banca_1.interfaces;
 
 import ec.edu.espe.practica.banca_1.clases.Prestamo;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -243,7 +244,7 @@ public class JDPrestamo extends javax.swing.JDialog {
                                     .addComponent(btnPrestamoSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(37, 37, 37)
                                     .addComponent(btnPrestamoSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -264,9 +265,9 @@ public class JDPrestamo extends javax.swing.JDialog {
                     .addComponent(jCBTiempoEstimado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSaldoActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addGap(81, 81, 81)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrestamoSolicitar)
                     .addComponent(btnPrestamoSalir))
@@ -287,20 +288,27 @@ public class JDPrestamo extends javax.swing.JDialog {
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
+        double inter;
         jTAmortizacion.clearSelection();
-        Prestamo objPrestamo = new Prestamo(jTAmortizacion);
+        Prestamo objPrestamo = new Prestamo();
+        
         if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio(txtCedula.getText()))) {
             JOptionPane.showMessageDialog(null, "Monto no disponible");
-
-        } else {
-            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,Double.parseDouble(txtSaldo.getText()));
             
-            ///
-            int tiempo = Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString());
-            System.out.println("que valor " + jCBTiempoEstimado.getSelectedItem());
-    
-
+        } else {
+            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,Double.parseDouble(txtSaldo.getText()),jTAmortizacion);
+            
         }
+        inter=objPrestamo.getInteres();
+        txtTasaInteres.setText(String.valueOf(inter));
+        if(inter==0){
+            txtEstadoPrestamo.setText("No Otorgado");
+            DefaultTableModel model=new DefaultTableModel();
+            jTAmortizacion.setModel(model);
+        }else{
+            txtEstadoPrestamo.setText("Otorgado");
+        }
+
 
 
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed

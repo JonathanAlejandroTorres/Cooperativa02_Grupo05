@@ -10,10 +10,12 @@ import java.sql.SQLException;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.text.DecimalFormat;
+
 
 /**
  *
- * @author jeffe
+ * @author DiegoYandun
  */
 public class Prestamo {
 
@@ -21,21 +23,26 @@ public class Prestamo {
     private ResultSet resultado;
     private double monto;
     private int tiempo;
-    private int interes;
+    private double interes;
     private double cuotaPagar;
+    
     DefaultTableModel model;
 
-    public Prestamo(JTable Mostrar) {
+    public Prestamo() {
         this.monto = 0.0;
         this.tiempo = 0;
         this.interes = 0;
-        model = (DefaultTableModel) Mostrar.getModel();
         conn = new Conexion();
     }
 
+    public double getInteres() {
+        return interes;
+    }
+
+
     public double montoPromedio(String cedula) {
 
-        String[] Datos = new String[5];
+       String[] Datos = new String[5];
 
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
             resultado = conn.ejecutarSQLSelect("select mov.codigo_movimiento,EXTRACT(MONTH from mov.fecha), "
@@ -47,7 +54,7 @@ public class Prestamo {
                 Datos[1] = resultado.getString(2);
                 System.out.println("Mes  " + Datos[1]);
                 Datos[2] = resultado.getString(3);
-                System.out.println("Año  " + Datos[2]);
+                System.out.println("AÃ±o  " + Datos[2]);
                 Datos[3] = resultado.getString(4);
                 System.out.println("codigo de cuenta  " + Datos[3]);
                 Datos[4] = resultado.getString(5);
@@ -70,24 +77,48 @@ public class Prestamo {
         double dividendo = Double.parseDouble(Datos[1]);
         double divisor = Double.parseDouble(Datos[0]);
         return dividendo / divisor;
+
     }
 
-    public void tablaAmortizacion(JComboBox tiemp, double valPrestamo) {
-
+    public void tablaAmortizacion(JComboBox tiemp, double valPrestamo, JTable Tabla) {
+        
+        DefaultTableModel model=new DefaultTableModel();
+        model.addColumn("Mes");
+        model.addColumn("Amortizacion");
+        model.addColumn("Interes");
+        model.addColumn("Pago");
+        model.addColumn("Saldo");
+        Tabla.setModel(model);
+        DecimalFormat formd = new DecimalFormat("0.00");
         String Datos[] = new String[5];
+        int mes=0;
+        double cantint=0;
+        double pago=0;
         tiempo = Integer.parseInt(tiemp.getSelectedItem().toString());
         if (tiempo <= 12) {
-            interes = 10;
+            interes = 0.1;
         } else {
-            interes = 16;
+            interes = 0.16;
         }
-        cuotaPagar = valPrestamo * 7;
-        Datos[0] = String.valueOf(cuotaPagar);
-        Datos[1] = String.valueOf(cuotaPagar);
-        Datos[2] = String.valueOf(cuotaPagar);
-        Datos[3] = String.valueOf(cuotaPagar);
-        Datos[4] = String.valueOf(cuotaPagar);
+        pago=valPrestamo*(((Math.pow((1+interes),tiempo))*interes)/((Math.pow((1+interes), tiempo))-1));
+        Datos[0]=String.valueOf(mes);
+        Datos[1]="";Datos[2]="";Datos[3]="";
+        Datos[4]=String.valueOf(valPrestamo);
         model.addRow(Datos);
-
+        Tabla.setModel(model);
+        do{
+            mes++;
+            Datos[0]=String.valueOf(mes);
+            cantint=valPrestamo*interes;
+            Datos[1]=String.valueOf(formd.format(pago-cantint));           
+            Datos[2]=String.valueOf(formd.format(cantint));           
+            Datos[3]=String.valueOf(formd.format(pago));
+            valPrestamo=valPrestamo-(pago-cantint);
+            Datos[4]=String.valueOf(formd.format(valPrestamo));
+                       
+            model.addRow(Datos);
+            Tabla.setModel(model);
+        }while(Math.floor(valPrestamo)>0);        
     }
+
 }
