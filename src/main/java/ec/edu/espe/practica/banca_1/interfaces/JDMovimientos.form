@@ -175,13 +175,13 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnMovGuardar" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMovNuevo" alignment="0" min="-2" pref="73" max="-2" attributes="0"/>
+                      <Component id="btnMovNuevo" min="-2" pref="73" max="-2" attributes="0"/>
+                      <Component id="btnMovGuardar" min="-2" pref="61" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="btnMovEliminar" alignment="1" min="-2" pref="73" max="-2" attributes="0"/>
-                      <Component id="btnMovSalir" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="btnMovEliminar" pref="73" max="32767" attributes="0"/>
+                      <Component id="btnMovSalir" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
               </Group>
