@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ec.edu.espe.practica.banca_1.clases;
 
 import java.sql.ResultSet;
@@ -13,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author juans
+ * @author diegoyandun
  */
 public class Clientes {
     private final Conexion conn;
@@ -37,7 +33,7 @@ public class Clientes {
         DefaultTableModel model = new DefaultTableModel();
         int band=0;
         Datos[0]="-1";
-        model.addColumn("CÃ©dula");
+        model.addColumn("Cedula");
         model.addColumn("Nombre");
         model.addColumn("Genero");
         model.addColumn("Ingreso Mensual");
@@ -55,7 +51,7 @@ public class Clientes {
             }
             Tabla.setModel(model);
             if(Datos[0]=="-1"){
-                 JOptionPane.showMessageDialog(null, "Cliente No Encontrado");
+                 JOptionPane.showMessageDialog(null, "El Cliente ya esta Registrado");
                  control=0;
                  band=0;
             }
@@ -69,7 +65,7 @@ public class Clientes {
         DefaultTableModel model = new DefaultTableModel();
         int band=0;
         Datos[0]="-1";
-        model.addColumn("CÃ©dula");
+        model.addColumn("Cédula");
         model.addColumn("Nombre");
         model.addColumn("Genero");
         model.addColumn("Ingreso Mensual");
@@ -142,14 +138,14 @@ public class Clientes {
             conn.ejecutarSQL("INSERT INTO cliente(CEDULA,NOMBRE,GENERO,INGRESO_MENSUAL)" +
                 "VALUES ('"+Cedula+"','"+Nombre+"','"+Genero+"','"+Ingreso_mensual+"')"); 
         }else{
-            JOptionPane.showMessageDialog(null, "Cliente ya registrado con ese número de cédula");
+            JOptionPane.showMessageDialog(null, "El cliente se encuentra registrado");
         }
     }
     
     public void actualizarCliente(){        
         if(control == 99){
             if(Datos[1].equals(Nombre) || Datos[3].equals(Ingreso_mensual)){
-                JOptionPane.showMessageDialog(null, "No a modificado la informaciÃ³n");
+                JOptionPane.showMessageDialog(null, "No a modificado la informacion");
             }else{
                 conn.ejecutarSQL("UPDATE cliente set NOMBRE='"+Nombre+"', INGRESO_MENSUAL="+Ingreso_mensual+" where CEDULA='"+Cedula+"'"); 
                 JOptionPane.showMessageDialog(null, "Cliente modificado");
