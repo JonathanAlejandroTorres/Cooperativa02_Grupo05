@@ -139,7 +139,7 @@ public class Clientes {
 
     public void actualizarCliente() {
         if (control == 99) {
-            if (Datos[1].equals(Nombre) || Datos[3].equals(Ingreso_mensual)) {
+            if (Datos[1].equals(Nombre) && Datos[3].equals(Ingreso_mensual)) {
                 JOptionPane.showMessageDialog(null, "No a modificado la informacion");
             } else {
                 conn.ejecutarSQL("UPDATE cliente set NOMBRE='" + Nombre + "', INGRESO_MENSUAL=" + Ingreso_mensual + " where CEDULA='" + Cedula + "'");
@@ -152,14 +152,22 @@ public class Clientes {
 
     public void borrarCliente() {
 
-        int val = JOptionPane.showConfirmDialog(null, "Se borra el cliente con cedula: " + Cedula);
+        int val = JOptionPane.showConfirmDialog(null, "Borrar cliente : " + Cedula);
 
         if (val == 0) {
-            if (control == 99) {
-                conn.ejecutarSQL("DELETE FROM cliente WHERE CEDULA='" + Cedula + "'");
-                JOptionPane.showMessageDialog(null, "Cliente borrado");
-            } else {
-                JOptionPane.showMessageDialog(null, "Cliente no registrado");
+            try {
+              //   String borrarlista = "DELETE FROM SCIM_V1.PRODUCTOSALQUILADOS WHERE ALQ_NUMERO=" + probnumalq;
+                String borrarlista = "DELETE FROM  cliente WHERE CEDULA=" + Cedula;
+                System.out.println(borrarlista);
+               
+                if (conn.ejecutarSQL(borrarlista)) {
+                    JOptionPane.showMessageDialog(null, "Cliente borrado");
+                }
+                else{
+                JOptionPane.showMessageDialog(null, " NO Cliente borrado");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error no se borro cliente");
             }
         }
 

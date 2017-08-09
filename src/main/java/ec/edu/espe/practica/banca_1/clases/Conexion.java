@@ -46,6 +46,7 @@ public class Conexion {
             Statement sentencia = conexion.createStatement();
             sentencia.executeUpdate(sql);
         } catch (SQLException ex) {
+            System.out.println("error"+ex);
             return false;
         }
         return true;

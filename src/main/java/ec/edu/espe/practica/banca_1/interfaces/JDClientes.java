@@ -344,21 +344,24 @@ public class JDClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClienteNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteNuevoActionPerformed
-        // TODO add your handling code here:
-        /*cli.setCedula("");
-        cli.setNombre("");
-        Limpiar();*/
-        cli.setCedula(txtClienteCI.getText());
-        cli.setNombre(txtClienteNombres.getText());
-        cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
-        if (cli.buscarClieentes(jtbCliente) == 1) {
-            cli.actualizarCliente();
-            cli.listaClieentes(jtbCliente);
+        if (txtClienteCI.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
+        } else {
+            if (cli.validarCedula(txtClienteCI.getText()) == true) {
+                
+                txtClienteCI.enable();
+                cli.setCedula(txtClienteCI.getText());
+                cli.setNombre(txtClienteNombres.getText());
+                cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
+                if (cli.buscarClieentes(jtbCliente) == 1) {
+                    cli.actualizarCliente();
+                    cli.listaClieentes(jtbCliente);
+                }
+                txtClienteCI.setText("");
+                txtClienteNombres.setText("");
+                txtIngresoMensual.setText("");
+            }
         }
-        txtClienteCI.setText("");
-        txtClienteNombres.setText("");
-        txtIngresoMensual.setText("");
-
     }//GEN-LAST:event_btnClienteNuevoActionPerformed
 
     private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
@@ -381,6 +384,7 @@ public class JDClientes extends javax.swing.JDialog {
                     cli.setGenero("F");
                 }
                 cli.nuevoCliente();
+                 cli.listaClieentes(jtbCliente);
                 txtClienteCI.setText("");
                 txtClienteNombres.setText("");
                 txtIngresoMensual.setText("");
@@ -392,13 +396,25 @@ public class JDClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_btnClienteGuardarActionPerformed
 
     private void btnClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEliminarActionPerformed
-        // TODO add your handling code here:
-        cli.setCedula(txtBuscarCI.getText());
-        if (cli.buscarClieentes(jtbCliente) == 1) {
-            cli.borrarCliente();
-            cli.listaClieentes(jtbCliente);
+        try {
+            if (txtBuscarCI.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
+            } else {
+                if (cli.validarCedula(txtBuscarCI.getText()) == true) {
+                    cli.setCedula(txtBuscarCI.getText());
+                    if (cli.validarEntrada() == 0) {
+                        JOptionPane.showMessageDialog(null, "No se encontro cliente");
+                    } else {
+                        cli.borrarCliente();
+                        cli.listaClieentes(jtbCliente);
+                    }
+
+                }
+                txtBuscarCI.setText("");
+            }
+        } catch (Exception ex) {
+
         }
-        txtBuscarCI.setText("");
 
     }//GEN-LAST:event_btnClienteEliminarActionPerformed
 
@@ -464,7 +480,7 @@ public class JDClientes extends javax.swing.JDialog {
         // TODO add your handling code here:
         try {
             if (txtBuscarCI.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Debe ingresar el nÃºmero de cÃ©dula.");
+                JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
             } else {
                 if (cli.validarCedula(txtBuscarCI.getText()) == true) {
                     cli.setCedula(txtBuscarCI.getText());
