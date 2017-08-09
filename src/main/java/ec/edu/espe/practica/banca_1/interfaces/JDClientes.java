@@ -409,9 +409,9 @@ public class JDClientes extends javax.swing.JDialog {
             evt.consume();
             //JOptionPane.showMessageDialog(null, "Debe ingresar solo números.");
         } else {
-            if (txtBuscarCI.getText().length() > 13) {
+            if (txtClienteCI.getText().length() == 10) {
                 evt.consume();
-                JOptionPane.showMessageDialog(null, "Dato ingresado incorrecto");
+
             }
         }
     }//GEN-LAST:event_txtClienteCIKeyTyped
@@ -453,9 +453,9 @@ public class JDClientes extends javax.swing.JDialog {
         if (c < '0' || c > '9') {
             evt.consume();
         } else {
-            if (txtBuscarCI.getText().length() > 13) {
+            if (txtBuscarCI.getText().length() == 10) {
                 evt.consume();
-                JOptionPane.showMessageDialog(null, "Dato ingresado incorrecto");
+
             }
         }
     }//GEN-LAST:event_txtBuscarCIKeyTyped
