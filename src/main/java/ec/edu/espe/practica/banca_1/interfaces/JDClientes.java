@@ -344,24 +344,17 @@ public class JDClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClienteNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteNuevoActionPerformed
-        if (txtClienteCI.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
-        } else {
-            if (cli.validarCedula(txtClienteCI.getText()) == true) {
-                
-                txtClienteCI.enable();
-                cli.setCedula(txtClienteCI.getText());
-                cli.setNombre(txtClienteNombres.getText());
-                cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
-                if (cli.buscarClieentes(jtbCliente) == 1) {
-                    cli.actualizarCliente();
-                    cli.listaClieentes(jtbCliente);
-                }
-                txtClienteCI.setText("");
-                txtClienteNombres.setText("");
-                txtIngresoMensual.setText("");
-            }
+        cli.setCedula(txtClienteCI.getText());
+        cli.setNombre(txtClienteNombres.getText());
+        cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
+        if(cli.buscarClieentes(jtbCliente)==1){
+            cli.actualizarCliente();
+            cli.listaClieentes(jtbCliente);
         }
+        txtClienteCI.setText("");
+        txtClienteNombres.setText("");
+        txtIngresoMensual.setText("");
+
     }//GEN-LAST:event_btnClienteNuevoActionPerformed
 
     private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
@@ -369,7 +362,7 @@ public class JDClientes extends javax.swing.JDialog {
         //cli.actualizarCliente();
         if (txtClienteCI.getText().equals("") || txtClienteNombres.getText().equals("")
                 || txtIngresoMensual.getText().equals("") || (jrbMasculino.isSelected() == false && jrbFemenino.isSelected() == false)) {
-            JOptionPane.showMessageDialog(pnlDatosCliente, "Falta llenar datos");
+            JOptionPane.showMessageDialog(pnlDatosCliente, "Llene todos los campos");
 
         } else {
             if (cli.validarCedula(txtClienteCI.getText()) == false) {

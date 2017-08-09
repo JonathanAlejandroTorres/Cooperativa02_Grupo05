@@ -138,16 +138,17 @@ public class Clientes {
     }
 
     public void actualizarCliente() {
-        if (control == 99) {
-            if (Datos[1].equals(Nombre) && Datos[3].equals(Ingreso_mensual)) {
-                JOptionPane.showMessageDialog(null, "No a modificado la informacion");
-            } else {
-                conn.ejecutarSQL("UPDATE cliente set NOMBRE='" + Nombre + "', INGRESO_MENSUAL=" + Ingreso_mensual + " where CEDULA='" + Cedula + "'");
+       if(control == 99){
+            if(Datos[1].equals(Nombre) || Datos[3].equals(Ingreso_mensual)){
+                JOptionPane.showMessageDialog(null, "No a modificado la informaciÃ³n");
+            }else{
+                conn.ejecutarSQL("UPDATE cliente set NOMBRE='"+Nombre+"', INGRESO_MENSUAL="+Ingreso_mensual+" where CEDULA='"+Cedula+"'"); 
                 JOptionPane.showMessageDialog(null, "Cliente modificado");
             }
-        } else {
+        }else{
             JOptionPane.showMessageDialog(null, "Cliente no registrado");
         }
+    
     }
 
     public void borrarCliente() {
