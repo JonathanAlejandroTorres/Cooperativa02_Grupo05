@@ -344,12 +344,17 @@ public class JDClientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClienteNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteNuevoActionPerformed
+        
         if (txtClienteCI.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
         } else {
             if (cli.validarCedula(txtClienteCI.getText()) == true) {
                 
-                txtClienteCI.enable();
+               if(txtClienteNombres.getText().equals("") || txtIngresoMensual.getText().equals(""))
+               {
+                JOptionPane.showMessageDialog(null, "Llenar datos");
+               }else{
+               
                 cli.setCedula(txtClienteCI.getText());
                 cli.setNombre(txtClienteNombres.getText());
                 cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
@@ -360,6 +365,11 @@ public class JDClientes extends javax.swing.JDialog {
                 txtClienteCI.setText("");
                 txtClienteNombres.setText("");
                 txtIngresoMensual.setText("");
+                btngroupGenero.clearSelection();
+                txtClienteCI.enable(true);
+               
+               }
+                
             }
         }
     }//GEN-LAST:event_btnClienteNuevoActionPerformed
@@ -367,6 +377,7 @@ public class JDClientes extends javax.swing.JDialog {
     private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
         // TODO add your handling code here:
         //cli.actualizarCliente();
+        txtClienteCI.enable(true);
         if (txtClienteCI.getText().equals("") || txtClienteNombres.getText().equals("")
                 || txtIngresoMensual.getText().equals("") || (jrbMasculino.isSelected() == false && jrbFemenino.isSelected() == false)) {
             JOptionPane.showMessageDialog(pnlDatosCliente, "Falta llenar datos");
@@ -388,6 +399,8 @@ public class JDClientes extends javax.swing.JDialog {
                 txtClienteCI.setText("");
                 txtClienteNombres.setText("");
                 txtIngresoMensual.setText("");
+                 btngroupGenero.clearSelection();
+                
             }
 
         }
