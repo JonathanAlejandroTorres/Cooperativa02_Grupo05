@@ -349,23 +349,24 @@ public class JDClientes extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Debe ingresar el número de cédula.");
         } else {
             if (cli.validarCedula(txtClienteCI.getText()) == true) {
-                
-               if(txtClienteNombres.getText().equals("") || txtIngresoMensual.getText().equals(""))
-               {
-                JOptionPane.showMessageDialog(null, "Llenar datos");
-               }else{
-               
-                cli.setCedula(txtClienteCI.getText());
-                cli.setNombre(txtClienteNombres.getText());
-                cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
-                if (cli.buscarClieentes(jtbCliente) == 1) {
-                    cli.actualizarCliente();
-                    cli.listaClieentes(jtbCliente);
-                }
-                txtClienteCI.setText("");
-                txtClienteNombres.setText("");
-                txtIngresoMensual.setText("");
-                btngroupGenero.clearSelection();
+
+                if (txtClienteNombres.getText().equals("") || txtIngresoMensual.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Llenar datos");
+                } else {
+
+                    cli.setCedula(txtClienteCI.getText());
+                    cli.setNombre(txtClienteNombres.getText());
+                    cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
+                    if (cli.validarEntrada() == 1) {
+                        cli.actualizarCliente();
+                        cli.listaClieentes(jtbCliente);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El cliente que desea modificar no existe");
+                    }
+                    txtClienteCI.setText("");
+                    txtClienteNombres.setText("");
+                    txtIngresoMensual.setText("");
+                    btngroupGenero.clearSelection();
                 txtClienteCI.enable(true);
                
                }
