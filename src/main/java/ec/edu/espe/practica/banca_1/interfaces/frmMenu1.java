@@ -35,7 +35,6 @@ public class frmMenu1 extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jmClientesEmpleados = new javax.swing.JMenu();
         jmiClientes = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmiCuenta = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jmCoches = new javax.swing.JMenu();
@@ -87,7 +86,6 @@ public class frmMenu1 extends javax.swing.JFrame {
             }
         });
         jmClientesEmpleados.add(jmiClientes);
-        jmClientesEmpleados.add(jSeparator1);
 
         jMenuBar1.add(jmClientesEmpleados);
 
@@ -306,7 +304,6 @@ public class frmMenu1 extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;

@@ -13,25 +13,28 @@ import javax.swing.JOptionPane;
  * @author jeffe
  */
 public class JDClientes extends javax.swing.JDialog {
-private Clientes cli;
+
+    private Clientes cli;
+
     /**
      * Creates new form JDClientes1
      */
     public JDClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         this.setLocationRelativeTo(this);
-        cli=new Clientes();
+        this.setLocationRelativeTo(this);
+        cli = new Clientes();
         btngroupGenero.add(jrbMasculino);
         btngroupGenero.add(jrbFemenino);
 
     }
-     public void Limpiar(){
+
+    public void Limpiar() {
         txtClienteCI.setText("");
-        txtClienteNombres.setText("");         
+        txtClienteNombres.setText("");
         txtBuscarCI.setText("");
         txtIngresoMensual.setText("");
-    }  
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -348,44 +351,50 @@ private Clientes cli;
         cli.setCedula(txtClienteCI.getText());
         cli.setNombre(txtClienteNombres.getText());
         cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
-        if(cli.buscarClieentes(jtbCliente)==1){
+        if (cli.buscarClieentes(jtbCliente) == 1) {
             cli.actualizarCliente();
             cli.listaClieentes(jtbCliente);
         }
         txtClienteCI.setText("");
         txtClienteNombres.setText("");
         txtIngresoMensual.setText("");
-        
+
     }//GEN-LAST:event_btnClienteNuevoActionPerformed
 
     private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
         // TODO add your handling code here:
         //cli.actualizarCliente();
-        cli.setCedula(txtClienteCI.getText());
-        cli.setNombre(txtClienteNombres.getText());
-        cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
-        if(jrbMasculino.isSelected()==true){
-            cli.setGenero("M");
-        }else{
-            cli.setGenero("F");
+        if (txtClienteCI.getText().equals("") || txtClienteNombres.getText().equals("")
+                || txtIngresoMensual.getText().equals("") || (jrbMasculino.isSelected() == false && jrbFemenino.isSelected() == false)) {
+            JOptionPane.showMessageDialog(pnlDatosCliente, "Falta llenar datos");
+
+        } else {
+            if (cli.validarCedula(txtClienteCI.getText()) == false) {
+                txtClienteCI.setText("");
+            } else {
+                cli.setCedula(txtClienteCI.getText());
+                cli.setNombre(txtClienteNombres.getText());
+                cli.setIngreso_mensual(Double.parseDouble(txtIngresoMensual.getText()));
+                if (jrbMasculino.isSelected() == true) {
+                    cli.setGenero("M");
+                } else {
+                    cli.setGenero("F");
+                }
+                cli.nuevoCliente();
+                txtClienteCI.setText("");
+                txtClienteNombres.setText("");
+                txtIngresoMensual.setText("");
+            }
+
         }
-        if(jrbMasculino.isSelected()==false && jrbFemenino.isSelected()==false){
-            JOptionPane.showMessageDialog(pnlDatosCliente, "Escoja un Genero");
-        }else{
-            cli.buscarClieentes(jtbCliente);
-            cli.nuevoCliente();
-            cli.listaClieentes(jtbCliente);
-            txtClienteCI.setText("");
-            txtClienteNombres.setText("");
-            txtIngresoMensual.setText("");
-        }
+
 
     }//GEN-LAST:event_btnClienteGuardarActionPerformed
 
     private void btnClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEliminarActionPerformed
         // TODO add your handling code here:
         cli.setCedula(txtBuscarCI.getText());
-        if(cli.buscarClieentes(jtbCliente)==1){
+        if (cli.buscarClieentes(jtbCliente) == 1) {
             cli.borrarCliente();
             cli.listaClieentes(jtbCliente);
         }
@@ -395,12 +404,12 @@ private Clientes cli;
 
     private void txtClienteCIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteCIKeyTyped
         // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if(c<'0'||c>'9'){
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
             evt.consume();
             //JOptionPane.showMessageDialog(null, "Debe ingresar solo números.");
-        }else{
-            if(txtBuscarCI.getText().length() > 13){
+        } else {
+            if (txtBuscarCI.getText().length() > 13) {
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "Dato ingresado incorrecto");
             }
@@ -409,8 +418,8 @@ private Clientes cli;
 
     private void txtClienteNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteNombresKeyTyped
         // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if((c<'a' || c>'z')&&(c<'A' || c>'Z') && c !=' '){
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && c != ' ') {
             evt.consume();
             //JOptionPane.showMessageDialog(null, "Debe ingresar solo números.");
         }
@@ -430,7 +439,7 @@ private Clientes cli;
         txtClienteCI.enable(false);
         txtClienteNombres.setText(nom);
 
-        
+
     }//GEN-LAST:event_jtbClienteMouseClicked
 
     private void btnClienteBuscarCI1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteBuscarCI1ActionPerformed
@@ -440,11 +449,11 @@ private Clientes cli;
 
     private void txtBuscarCIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCIKeyTyped
         // TODO add your handling code here:
-        char c=evt.getKeyChar();
-        if(c<'0'||c>'9'){
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
             evt.consume();
-        }else{
-            if(txtBuscarCI.getText().length() > 13){
+        } else {
+            if (txtBuscarCI.getText().length() > 13) {
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "Dato ingresado incorrecto");
             }
@@ -453,17 +462,17 @@ private Clientes cli;
 
     private void btnClienteBuscarCIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteBuscarCIActionPerformed
         // TODO add your handling code here:
-        try{
-            if(txtBuscarCI.getText().equals("")){
-                JOptionPane.showMessageDialog(null,"Debe ingresar el nÃºmero de cÃ©dula.");
-            }else{
-                if(cli.validarCedula(txtBuscarCI.getText()) == true){
+        try {
+            if (txtBuscarCI.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Debe ingresar el nÃºmero de cÃ©dula.");
+            } else {
+                if (cli.validarCedula(txtBuscarCI.getText()) == true) {
                     cli.setCedula(txtBuscarCI.getText());
-                    cli.buscarClieentes(jtbCliente);                    
+                    cli.buscarClieentes(jtbCliente);
                 }
                 txtBuscarCI.setText("");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
 
         }
 
