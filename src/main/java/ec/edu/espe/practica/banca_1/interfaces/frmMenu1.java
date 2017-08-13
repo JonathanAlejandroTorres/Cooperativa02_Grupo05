@@ -49,6 +49,7 @@ public class frmMenu1 extends javax.swing.JFrame {
         jmPrestamos = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jmiSolicitarPrestamo = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,8 +73,6 @@ public class frmMenu1 extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addContainerGap(106, Short.MAX_VALUE))
         );
-
-        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
         jmClientesEmpleados.setBackground(new java.awt.Color(153, 153, 153));
         jmClientesEmpleados.setBorder(null);
@@ -108,7 +107,6 @@ public class frmMenu1 extends javax.swing.JFrame {
 
         jMenuBar1.add(jmiCuenta);
 
-        jmCoches.setBackground(new java.awt.Color(255, 255, 255));
         jmCoches.setBorder(null);
         jmCoches.setText("Movimientos");
 
@@ -183,6 +181,14 @@ public class frmMenu1 extends javax.swing.JFrame {
             }
         });
         jmPrestamos.add(jmiSolicitarPrestamo);
+
+        jMenuItem2.setText("Buscar Prestamo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jmPrestamos.add(jMenuItem2);
 
         jMenuBar1.add(jmPrestamos);
 
@@ -266,6 +272,12 @@ public class frmMenu1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmPrestamosMouseClicked
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        JDConPrestamo prestamo = new JDConPrestamo(this, true);
+        prestamo.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -292,6 +304,7 @@ public class frmMenu1 extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmMenu1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -305,6 +318,7 @@ public class frmMenu1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
