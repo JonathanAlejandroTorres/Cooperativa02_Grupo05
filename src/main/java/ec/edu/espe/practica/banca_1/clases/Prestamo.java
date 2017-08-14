@@ -168,6 +168,11 @@ public class Prestamo {
                 System.out.println("estoooo"+"INSERT INTO amortizacion(cedula,mes,amortizacion,interes,pago,saldo)" +
                 "VALUES ("+cedula+","+mes+","+formd.format(pago - cantint)+","+formd.format(cantint)+","+formd.format(pago)+","+formd.format(valPrestamo)+")");
                 System.out.println("rttttt"+b);
+                Datos[5] = String.valueOf(formd.format(valPrestamo));
+                     if(mes2==12){
+                    mes2 = 0;
+                    anio = anio + 1;
+                }
                 model.addRow(Datos);
                 Tabla.setModel(model);
                 mes2++;
