@@ -333,6 +333,7 @@ double movi;
                     txtTasaInteres.setText(String.valueOf(inter) + "%");
                     if (inter == 0) {
                         txtEstadoPrestamo.setText("No Otorgado");
+                        
                         DefaultTableModel model = new DefaultTableModel();
                         jTAmortizacion.setModel(model);
                     } else {
