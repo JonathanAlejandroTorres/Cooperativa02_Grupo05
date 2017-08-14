@@ -318,6 +318,8 @@ public class JDConPrestamo extends javax.swing.JDialog {
         } else {
             if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion,txtMontoTotalPagar)) {
                 JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
+            }else{
+                  obj.mostrarTabla(txtCedula.getText(), jTAmortizacion);
             }
         }
     }//GEN-LAST:event_btnBuscarPrestamoActionPerformed

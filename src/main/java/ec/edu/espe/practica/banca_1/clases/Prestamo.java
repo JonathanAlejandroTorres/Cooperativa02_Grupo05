@@ -251,6 +251,36 @@ public class Prestamo {
         return flag;
     }
     
-    
+     public void mostrarTabla(String cedula, JTable Tabla) {
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Couta");
+        model.addColumn("Fecha Pago");
+        model.addColumn("Amortizacion");
+        model.addColumn("Interes");
+        model.addColumn("Pago");
+        model.addColumn("Saldo");
+        Tabla.setModel(model);
+        //String a = "1718413212" ;
+        DecimalFormat formd = new DecimalFormat("0.00");
+        String datos[] = new String[6];
+        try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
+            resultado = conn.ejecutarSQLSelect("select *  from amortizacion where cedula='" + cedula + "'");
+            while (resultado.next()) {
+                datos[0] = resultado.getString(2);
+                datos[1] = resultado.getString(3);
+                datos[2] = resultado.getString(4);
+                datos[3] = resultado.getString(5);
+                datos[4] = resultado.getString(6);
+                datos[5] = resultado.getString(7);
+                model.addRow(datos);
+                Tabla.setModel(model);
+
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Error en la ejecución");
+        }
+    }
    
 }
