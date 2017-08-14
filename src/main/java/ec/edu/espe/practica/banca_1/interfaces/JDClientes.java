@@ -293,12 +293,13 @@ private Clientes cli;
     private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
         // TODO add your handling code here:
         //cli.actualizarCliente();
-        cli.setCedula(txtClienteCI.getText());
-        cli.setNombre(txtClienteNombres.getText());
-        cli.nuevoCliente();
-        cli.buscarClieentes("", jtbCliente);
-        txtClienteCI.setText("");
-        txtClienteNombres.setText("");
+            cli.setCedula(txtClienteCI.getText());
+            cli.setNombre(txtClienteNombres.getText());
+            cli.nuevoCliente();
+            cli.buscarClieentes("", jtbCliente);
+            txtClienteCI.setText("");
+            txtClienteNombres.setText("");
+        
     }//GEN-LAST:event_btnClienteGuardarActionPerformed
 
     private void btnClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEliminarActionPerformed
@@ -325,7 +326,7 @@ private Clientes cli;
     private void txtClienteNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClienteNombresKeyTyped
         // TODO add your handling code here:
         char c=evt.getKeyChar();
-        if((c<'a' || c>'z')&&(c<'A' || c>'Z')){
+        if((c<'a' || c>'z')&&(c<'A' || c>'Z') && (c!=' ')){
             evt.consume();
             //JOptionPane.showMessageDialog(null, "Debe ingresar solo números.");
         }
