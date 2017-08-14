@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.text.DecimalFormat;
 import javax.swing.JTextField;
+import java.util.Calendar;
 
 /**
  *
@@ -108,16 +109,22 @@ public class Prestamo {
     }
 
     public double tablaAmortizacion(String tiemp, double valPrestamo, JTable Tabla, String cedula) {
+       Calendar cal= Calendar.getInstance();
+        String fecha=cal.get(cal.DATE)+"/"+(cal.get(cal.MONTH)+1)+"/"+cal.get(cal.YEAR);
+        int dia = cal.get(cal.DATE);
+        int mes2 = cal.get(cal.MONTH)+1;
+        int anio = cal.get(cal.YEAR);
         boolean bandera = false;
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Mes");
+        model.addColumn("Couta");
+        model.addColumn("Fecha Pago");
         model.addColumn("Amortizacion");
         model.addColumn("Interes");
         model.addColumn("Pago");
         model.addColumn("Saldo");
         Tabla.setModel(model);
         DecimalFormat formd = new DecimalFormat("0.00");
-        String Datos[] = new String[5];
+        String Datos[] = new String[6];
         int mes = 0;
         double cantint = 0;
         double pago = 0;
@@ -132,10 +139,12 @@ public class Prestamo {
         cuotaPagar = pago;
         if (pago <= saldoactual(cedula) * 0.3) {
             Datos[0] = String.valueOf(mes);
-            Datos[1] = "";
+            Datos[1] = fecha;
             Datos[2] = "";
             Datos[3] = "";
-            Datos[4] = String.valueOf(valPrestamo);
+            Datos[4] = "";
+            Datos[5] = String.valueOf(valPrestamo);
+            mes2++;
             model.addRow(Datos);
             Tabla.setModel(model);
             do {
@@ -143,15 +152,20 @@ public class Prestamo {
                 System.out.println("que pasa ");
                 mes++;
                 Datos[0] = String.valueOf(mes);
+                Datos[1] = dia+"/" + mes2 + "/" +anio;
                 cantint = valPrestamo * interes;
-                Datos[1] = String.valueOf(formd.format(pago - cantint));
-                Datos[2] = String.valueOf(formd.format(cantint));
-                Datos[3] = String.valueOf(formd.format(pago));
+                Datos[2] = String.valueOf(formd.format(pago - cantint));
+                Datos[3] = String.valueOf(formd.format(cantint));
+                Datos[4] = String.valueOf(formd.format(pago));
                 valPrestamo = valPrestamo - (pago - cantint);
-                Datos[4] = String.valueOf(formd.format(valPrestamo));
-
+                Datos[5] = String.valueOf(formd.format(valPrestamo));
+                     if(mes2==12){
+                    mes2 = 0;
+                    anio = anio + 1;
+                }
                 model.addRow(Datos);
                 Tabla.setModel(model);
+                mes2++;
             } while (Math.floor(valPrestamo) > 0);
         } else {
             bandera = true;

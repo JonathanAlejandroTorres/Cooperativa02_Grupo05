@@ -39,7 +39,7 @@ public class JDPrestamo extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jCBTiempoEstimado = new javax.swing.JComboBox<String>();
+        jCBTiempoEstimado = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -101,7 +101,7 @@ public class JDPrestamo extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Tiempo estimado:");
 
-        jCBTiempoEstimado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36" }));
+        jCBTiempoEstimado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Saldo Mensual:");
@@ -132,13 +132,13 @@ public class JDPrestamo extends javax.swing.JDialog {
 
         jTAmortizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mes", "Amortización", "Interés", "Pago", "Saldo"
+                "Cuota", "Fecha Pago", "Amortización", "Interés", "Pago", "Saldo"
             }
         ));
         jScrollPane1.setViewportView(jTAmortizacion);
