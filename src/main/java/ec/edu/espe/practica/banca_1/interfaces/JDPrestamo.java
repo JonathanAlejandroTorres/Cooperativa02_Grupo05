@@ -57,7 +57,6 @@ public class JDPrestamo extends javax.swing.JDialog {
         txtCedula = new javax.swing.JTextField();
         txtSaldoActual = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        btnGuardarPrestamo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,7 +105,7 @@ public class JDPrestamo extends javax.swing.JDialog {
         jCBTiempoEstimado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Saldo Mensual:");
+        jLabel5.setText("Saldo Actual:");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Tasa de interés:");
@@ -208,13 +207,6 @@ public class JDPrestamo extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel11.setText("meses");
 
-        btnGuardarPrestamo.setText("GUARDAR PRESTAMO");
-        btnGuardarPrestamo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPrestamoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -248,13 +240,11 @@ public class JDPrestamo extends javax.swing.JDialog {
                                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(21, 21, 21))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnGuardarPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btnPrestamoSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(37, 37, 37)
-                                        .addComponent(btnPrestamoSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnPrestamoSolicitar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(37, 37, 37)
+                                    .addComponent(btnPrestamoSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -281,9 +271,7 @@ public class JDPrestamo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPrestamoSolicitar)
                     .addComponent(btnPrestamoSalir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGuardarPrestamo)
-                .addGap(25, 25, 25))
+                .addGap(66, 66, 66))
         );
 
         pack();
@@ -301,38 +289,27 @@ public class JDPrestamo extends javax.swing.JDialog {
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
         // TODO add your handling code here:
         double inter;
-        double movi;
         jTAmortizacion.clearSelection();
         Prestamo objPrestamo = new Prestamo();
-        boolean flag;
-        txtSaldoActual.setText(String.valueOf(objPrestamo.saldoactual(txtCedula.getText())));
-        movi=objPrestamo.montoPromedio(txtCedula.getText());
-        if(movi==-1){
-            JOptionPane.showMessageDialog(rootPane, "El cliente no tiene movimientos");
-        }else{
-            if (Double.parseDouble(txtSaldo.getText()) > (3 * movi)) {
-                JOptionPane.showMessageDialog(null, "Monto no disponible");
-
-            } else {
-                
-
-                flag=objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(),Double.parseDouble(txtSaldo.getText()),jTAmortizacion,txtCedula.getText());
-                if(flag)
-                    JOptionPane.showMessageDialog(rootPane, "La cuota supera al 30% del salario");
-                else{
-                    inter=objPrestamo.getInteres()*100;
-                    txtTasaInteres.setText(String.valueOf(inter)+"%");
-                    if(inter==0){
-                        txtEstadoPrestamo.setText("No Otorgado");
-                        DefaultTableModel model=new DefaultTableModel();
-                        jTAmortizacion.setModel(model);
-                    }else{
-                        txtEstadoPrestamo.setText("Otorgado");
-                    }
-                }
-            }        
-
+        
+        if (Double.parseDouble(txtSaldo.getText()) > (3 * objPrestamo.montoPromedio(txtCedula.getText()))) {
+            JOptionPane.showMessageDialog(null, "Monto no disponible");
+            
+        } else {
+            objPrestamo.tablaAmortizacion(jCBTiempoEstimado,Double.parseDouble(txtSaldo.getText()),jTAmortizacion);
+            
         }
+        inter=objPrestamo.getInteres();
+        txtTasaInteres.setText(String.valueOf(inter));
+        if(inter==0){
+            txtEstadoPrestamo.setText("No Otorgado");
+            DefaultTableModel model=new DefaultTableModel();
+            jTAmortizacion.setModel(model);
+        }else{
+            txtEstadoPrestamo.setText("Otorgado");
+        }
+
+
 
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
@@ -343,12 +320,6 @@ public class JDPrestamo extends javax.swing.JDialog {
     private void txtEstadoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEstadoPrestamoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEstadoPrestamoActionPerformed
-
-    private void btnGuardarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPrestamoActionPerformed
-        // TODO add your handling code here:
-        Prestamo objPrestamo = new Prestamo();
-        JOptionPane.showMessageDialog(rootPane, objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
-    }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,9 +347,6 @@ public class JDPrestamo extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(JDPrestamo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -396,7 +364,6 @@ public class JDPrestamo extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGuardarPrestamo;
     private javax.swing.JButton btnPrestamoSalir;
     private javax.swing.JButton btnPrestamoSolicitar;
     private javax.swing.JComboBox<String> jCBTiempoEstimado;
