@@ -159,7 +159,7 @@ public class Prestamo {
         return pago;
     }
 
-    public String guardarPrestamo(String cedula, double monto, int plazo,String interes,double pagoPrestamo) {
+    public String guardarPrestamo(String cedula, double monto, int plazo,double interes,double pagoPrestamo) {
         String data = "-1";
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
             resultado = conn.ejecutarSQLSelect("select MONTO_OTORGADO FROM prestamos WHERE CEDULA='" + cedula + "'");
@@ -176,8 +176,13 @@ public class Prestamo {
                 }
                 int idpr = Integer.parseInt(data) + 1;
 
-                conn.ejecutarSQL("INSERT INTO prestamos VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + pagoPrestamo +","+interes+ "," + plazo + ",sysdate())");
-                data = "Prestamo guardado";
+                            
+                
+                
+               boolean a= conn.ejecutarSQL("INSERT INTO prestamos(ID,CEDULA,MONTO_OTORGADO"
+                       + ",INTERES,MONTO_DEUDA,PLAZO,FECHA) VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + interes +","+pagoPrestamo+ "," + plazo + ",sysdate())");
+                System.out.println("quiero ver si guadra"+a); 
+               data = "Prestamo guardado";
             } else {
                 data = "Este cliente ya tiene un prestamo de " + data;
             }

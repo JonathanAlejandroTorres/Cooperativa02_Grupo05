@@ -5,7 +5,6 @@
  */
 package ec.edu.espe.practica.banca_1.interfaces;
 
-
 import ec.edu.espe.practica.banca_1.clases.Prestamo;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JDConPrestamo extends javax.swing.JDialog {
 
-  
     /**
      * Creates new form JDPrestamo
      */
@@ -150,12 +148,11 @@ public class JDConPrestamo extends javax.swing.JDialog {
                         .addComponent(jLabel10))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel7)))
                 .addContainerGap(22, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,12 +258,13 @@ public class JDConPrestamo extends javax.swing.JDialog {
                     .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarPrestamo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCuota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -284,20 +282,21 @@ public class JDConPrestamo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
-       
+
     }//GEN-LAST:event_txtMontoActionPerformed
 
     private void btnPrestamoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSalirActionPerformed
-       
+
         this.dispose();//CERRAR VENTANA
     }//GEN-LAST:event_btnPrestamoSalirActionPerformed
 
     private void btnBuscarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPrestamoActionPerformed
         // TODO add your handling code here:
-        Prestamo obj=new Prestamo();
-        
-        if(obj.buscar(txtCedula.getText(),txtMonto,txtCuota,txtFecha,txtPlazo,txtTasaInteres,jTAmortizacion))
+        Prestamo obj = new Prestamo();
+
+        if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion)) {
             JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
+        }
     }//GEN-LAST:event_btnBuscarPrestamoActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed

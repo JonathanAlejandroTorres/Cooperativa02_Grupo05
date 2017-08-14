@@ -330,7 +330,7 @@ public class JDPrestamo extends javax.swing.JDialog {
                     double monto=objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(), Double.parseDouble(txtSaldo.getText()), jTAmortizacion, txtCedula.getText());
 
                     inter = objPrestamo.getInteres() * 100;
-                    txtTasaInteres.setText(String.valueOf(inter) + "%");
+                    txtTasaInteres.setText(String.valueOf(inter));
                     if (inter == 0) {
                         txtEstadoPrestamo.setText("No Otorgado");
 
@@ -340,7 +340,7 @@ public class JDPrestamo extends javax.swing.JDialog {
                         txtEstadoPrestamo.setText("Otorgado");
                     }
                     String h = objPrestamo.guardarPrestamo(txtCedula.getText(), Double.parseDouble(txtSaldo.getText()),
-                            Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString()), txtTasaInteres.getText(),monto);
+                            Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString()), Double.parseDouble(txtTasaInteres.getText()),monto);
                     System.out.println("hhh" + h);
                     //  objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
 
