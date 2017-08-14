@@ -59,6 +59,7 @@ public class JDMovimientos extends javax.swing.JDialog {
         pnlMantenimientoTitulo = new java.awt.Panel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         lblIngresarID = new javax.swing.JLabel();
         txtBuscarCI = new javax.swing.JTextField();
         btnClienteBuscarCI = new javax.swing.JButton();
@@ -90,36 +91,50 @@ public class JDMovimientos extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 35)); // NOI18N
         jLabel1.setText("MOVIMIENTOS");
 
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\prestamos2.png")); // NOI18N
+
         javax.swing.GroupLayout pnlMantenimientoTituloLayout = new javax.swing.GroupLayout(pnlMantenimientoTitulo);
         pnlMantenimientoTitulo.setLayout(pnlMantenimientoTituloLayout);
         pnlMantenimientoTituloLayout.setHorizontalGroup(
             pnlMantenimientoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMantenimientoTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(173, 173, 173)
                 .addComponent(jLabel2))
+            .addGroup(pnlMantenimientoTituloLayout.createSequentialGroup()
+                .addGap(227, 227, 227)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(19, 19, 19))
         );
         pnlMantenimientoTituloLayout.setVerticalGroup(
             pnlMantenimientoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlMantenimientoTituloLayout.createSequentialGroup()
                 .addComponent(jLabel2)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(pnlMantenimientoTituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addGroup(pnlMantenimientoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         lblIngresarID.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblIngresarID.setText("Ingresar CI:");
 
+        txtBuscarCI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarCIActionPerformed(evt);
+            }
+        });
         txtBuscarCI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarCIKeyTyped(evt);
             }
         });
 
+        btnClienteBuscarCI.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnClienteBuscarCI.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\Search.png")); // NOI18N
+        btnClienteBuscarCI.setText("Buscar");
         btnClienteBuscarCI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClienteBuscarCIActionPerformed(evt);
@@ -128,24 +143,36 @@ public class JDMovimientos extends javax.swing.JDialog {
 
         panel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnMovEliminar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMovEliminar.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\eliminar.png")); // NOI18N
+        btnMovEliminar.setText("Eliminar");
         btnMovEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovEliminarActionPerformed(evt);
             }
         });
 
+        btnMovGuardar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMovGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\guardarCliente.png")); // NOI18N
+        btnMovGuardar.setText("Guardar");
         btnMovGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovGuardarActionPerformed(evt);
             }
         });
 
+        btnMovNuevo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMovNuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\escoba.png")); // NOI18N
+        btnMovNuevo.setText("Limpiar");
         btnMovNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovNuevoActionPerformed(evt);
             }
         });
 
+        btnMovSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnMovSalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\DiegoYandun\\Documents\\NetBeansProjects\\Cooperativa02_Grupo05\\src\\main\\java\\ec\\edu\\espe\\practica\\banca_1\\imagenes\\salirCoche.png")); // NOI18N
+        btnMovSalir.setText("Salir");
         btnMovSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovSalirActionPerformed(evt);
@@ -157,30 +184,27 @@ public class JDMovimientos extends javax.swing.JDialog {
         panel1Layout.setHorizontalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMovGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMovEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(btnMovEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMovSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(btnMovGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnMovNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(53, 53, 53))
+                    .addComponent(btnMovNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(btnMovSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnMovNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMovGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMovGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMovNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnMovEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                    .addComponent(btnMovSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(127, 127, 127))
+                    .addComponent(btnMovSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMovEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(152, 152, 152))
         );
 
         jcmbCuenta.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +213,7 @@ public class JDMovimientos extends javax.swing.JDialog {
             }
         });
 
-        pnlDatosMov.setBackground(new java.awt.Color(204, 255, 255));
+        pnlDatosMov.setBackground(new java.awt.Color(149, 149, 149));
 
         jcmbTipo.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jcmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Retiro", "Depósito" }));
@@ -238,53 +262,59 @@ public class JDMovimientos extends javax.swing.JDialog {
             .addGroup(pnlDatosMovLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMantenimientoCodigo)
-                    .addComponent(lblMantenimientoTipo)
-                    .addComponent(lblMantenimientoTipo1)
-                    .addComponent(lblMantenimientoNombre)
-                    .addComponent(lblMantenimientoStock)
-                    .addComponent(lblMantenimientoCodigo2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigoCuenta)
-                    .addComponent(txtFecha)
-                    .addComponent(txtMonto)
-                    .addComponent(txtSaldo)
-                    .addComponent(txtCodigo)
-                    .addComponent(jcmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addGroup(pnlDatosMovLayout.createSequentialGroup()
+                        .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMantenimientoNombre)
+                            .addComponent(lblMantenimientoTipo1)
+                            .addComponent(lblMantenimientoTipo)
+                            .addComponent(lblMantenimientoStock, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(68, 68, 68)
+                        .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtMonto, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jcmbTipo, 0, 125, Short.MAX_VALUE)
+                            .addComponent(txtSaldo)))
+                    .addGroup(pnlDatosMovLayout.createSequentialGroup()
+                        .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMantenimientoCodigo2)
+                            .addComponent(lblMantenimientoCodigo))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                            .addComponent(txtCodigo))))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         pnlDatosMovLayout.setVerticalGroup(
             pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDatosMovLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(31, 31, 31)
+                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblMantenimientoCodigo)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMantenimientoCodigo))
-                .addGap(14, 14, 14)
-                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMantenimientoCodigo2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMantenimientoTipo)
-                    .addComponent(jcmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMantenimientoTipo1))
+                    .addComponent(lblMantenimientoCodigo2)
+                    .addComponent(txtCodigoCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
                 .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDatosMovLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addComponent(lblMantenimientoTipo))
                     .addGroup(pnlDatosMovLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addComponent(lblMantenimientoNombre)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMantenimientoTipo1)
+                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMantenimientoNombre)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(pnlDatosMovLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMantenimientoStock))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -293,44 +323,44 @@ public class JDMovimientos extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlMantenimientoTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(179, 179, 179)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblIngresarID)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnClienteBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pnlDatosMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jcmbCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblIngresarID, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcmbCuenta, 0, 152, Short.MAX_VALUE)
+                            .addComponent(txtBuscarCI))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnClienteBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(pnlDatosMov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(59, 59, 59)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlMantenimientoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClienteBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIngresarID))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jcmbCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlDatosMov, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtBuscarCI, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIngresarID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jcmbCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(btnClienteBuscarCI)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlDatosMov, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
         );
 
         pack();
@@ -401,6 +431,10 @@ public class JDMovimientos extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtMontoKeyTyped
 
+    private void txtBuscarCIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarCIActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarCIActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -452,6 +486,7 @@ public class JDMovimientos extends javax.swing.JDialog {
     private javax.swing.JButton btnMovSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JComboBox<String> jcmbCuenta;
     private javax.swing.JComboBox<String> jcmbTipo;
     private javax.swing.JLabel lblIngresarID;
