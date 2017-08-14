@@ -299,41 +299,52 @@ public class JDPrestamo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnPrestamoSalirActionPerformed
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
-        // TODO add your handling code here:
+
+         // TODO add your handling code here:
         double inter;
-        double movi;
         jTAmortizacion.clearSelection();
         Prestamo objPrestamo = new Prestamo();
+
+double movi;
         boolean flag;
         txtSaldoActual.setText(String.valueOf(objPrestamo.saldoactual(txtCedula.getText())));
-        movi=objPrestamo.montoPromedio(txtCedula.getText());
-        if(movi==-1){
+        movi = objPrestamo.montoPromedio(txtCedula.getText());
+        System.out.println("saldo que tiene en el ultimo mes" + movi);
+        if (movi == -1) {
             JOptionPane.showMessageDialog(rootPane, "El cliente no tiene movimientos");
-        }else{
-            if (Double.parseDouble(txtSaldo.getText()) > (3 * movi)) {
+        } else {
+            
+        
+            //los meses
+            String valPlazosMeses = jCBTiempoEstimado.getSelectedItem().toString();
+            double valPlazosprome = objPrestamo.saldoactual(txtCedula.getText());
+            double valPago = Integer.parseInt(valPlazosMeses) * ((valPlazosprome*30)/100);
+            if (Double.parseDouble(txtSaldo.getText()) >= (3 * movi)) {
                 JOptionPane.showMessageDialog(null, "Monto no disponible");
 
             } else {
-                
 
-                flag=objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(),Double.parseDouble(txtSaldo.getText()),jTAmortizacion,txtCedula.getText());
-                if(flag)
-                    JOptionPane.showMessageDialog(rootPane, "La cuota supera al 30% del salario");
-                else{
-                    inter=objPrestamo.getInteres()*100;
-                    txtTasaInteres.setText(String.valueOf(inter)+"%");
-                    if(inter==0){
+                if (valPago < Double.parseDouble(txtSaldo.getText())) {
+                    JOptionPane.showMessageDialog(rootPane, "No puede pagar prestamo en ese tiempo");
+
+                } else {
+                    objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(), Double.parseDouble(txtSaldo.getText()), jTAmortizacion, txtCedula.getText());
+                    inter = objPrestamo.getInteres() * 100;
+                    txtTasaInteres.setText(String.valueOf(inter) + "%");
+                    if (inter == 0) {
                         txtEstadoPrestamo.setText("No Otorgado");
-                        DefaultTableModel model=new DefaultTableModel();
+                        DefaultTableModel model = new DefaultTableModel();
                         jTAmortizacion.setModel(model);
-                    }else{
+                    } else {
                         txtEstadoPrestamo.setText("Otorgado");
                     }
+
                 }
-            }        
+
+            }
 
         }
-
+        
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed
