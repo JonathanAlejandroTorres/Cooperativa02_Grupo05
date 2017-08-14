@@ -39,7 +39,7 @@ public class JDPrestamo extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jCBTiempoEstimado = new javax.swing.JComboBox<String>();
+        jCBTiempoEstimado = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -97,11 +97,16 @@ public class JDPrestamo extends javax.swing.JDialog {
                 txtSaldoActionPerformed(evt);
             }
         });
+        txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Tiempo estimado:");
 
-        jCBTiempoEstimado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36" }));
+        jCBTiempoEstimado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3", "6", "9", "12", "15", "18", "21", "24", "27", "30", "33", "36" }));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel5.setText("Saldo Mensual:");
@@ -198,6 +203,12 @@ public class JDPrestamo extends javax.swing.JDialog {
         btnPrestamoSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrestamoSalirActionPerformed(evt);
+            }
+        });
+
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
             }
         });
 
@@ -305,9 +316,18 @@ public class JDPrestamo extends javax.swing.JDialog {
 
         double movi;
         boolean flag;
+        
+        if(txtCedula.getText().equals("") || txtSaldo.getText().equals("")){
+        
+        JOptionPane.showMessageDialog(null, "Falta llenar datos");
+        }else{
+        
+                   
+        
         txtSaldoActual.setText(String.valueOf(objPrestamo.saldoactual(txtCedula.getText())));
         movi = objPrestamo.montoPromedio(txtCedula.getText());
         System.out.println("saldo que tiene en el ultimo mes" + movi);
+        
         if (movi == -1) {
             JOptionPane.showMessageDialog(rootPane, "El cliente no tiene movimientos");
         } else {
@@ -329,7 +349,7 @@ public class JDPrestamo extends javax.swing.JDialog {
 
                     double monto=objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(), Double.parseDouble(txtSaldo.getText()), jTAmortizacion, txtCedula.getText());
 
-                    inter = objPrestamo.getInteres() * 100;
+                    inter = (objPrestamo.getInteres()*12) * 100;
                     txtTasaInteres.setText(String.valueOf(inter));
                     if (inter == 0) {
                         txtEstadoPrestamo.setText("No Otorgado");
@@ -349,7 +369,7 @@ public class JDPrestamo extends javax.swing.JDialog {
             }
 
         }
-
+        }
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed
@@ -365,6 +385,22 @@ public class JDPrestamo extends javax.swing.JDialog {
         Prestamo objPrestamo = new Prestamo();
       //  JOptionPane.showMessageDialog(rootPane, objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
     }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if((car<'0' || car>'9')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
+
+    private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if((car<'0' || car>'9') && car != '.'){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtSaldoKeyTyped
 
     /**
      * @param args the command line arguments

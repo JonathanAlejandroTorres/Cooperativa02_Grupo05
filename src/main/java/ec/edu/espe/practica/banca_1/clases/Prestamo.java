@@ -138,6 +138,8 @@ public class Prestamo {
             Datos[4] = String.valueOf(valPrestamo);
             model.addRow(Datos);
             Tabla.setModel(model);
+            boolean a = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)" +
+                "VALUES ('"+cedula+"',"+mes+",'0','0','0','0','0')");
             do {
 
                 System.out.println("que pasa ");
@@ -149,7 +151,13 @@ public class Prestamo {
                 Datos[3] = String.valueOf(formd.format(pago));
                 valPrestamo = valPrestamo - (pago - cantint);
                 Datos[4] = String.valueOf(formd.format(valPrestamo));
-
+                //System.out.println("Dato 0:" +Integer.parseInt(Datos[0])+"Datos 1:"+formd.format(pago - cantint)+
+                //        "Datos 2:"+formd.format(cantint)+"Datos 3:"+formd.format(pago)+"Datos 4:"+formd.format(Math.abs(valPrestamo)));
+                boolean b = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)" +
+                "VALUES ('"+cedula+"',"+mes+",sysdate(),'"+(pago - cantint)+"','"+cantint+"','"+pago+"','"+valPrestamo+"')");
+                System.out.println("estoooo"+"INSERT INTO amortizacion(cedula,mes,amortizacion,interes,pago,saldo)" +
+                "VALUES ("+cedula+","+mes+","+formd.format(pago - cantint)+","+formd.format(cantint)+","+formd.format(pago)+","+formd.format(valPrestamo)+")");
+                System.out.println("rttttt"+b);
                 model.addRow(Datos);
                 Tabla.setModel(model);
             } while (Math.floor(valPrestamo) > 0);

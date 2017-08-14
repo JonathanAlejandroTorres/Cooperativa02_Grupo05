@@ -177,6 +177,12 @@ public class JDConPrestamo extends javax.swing.JDialog {
             }
         });
 
+        txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCedulaKeyTyped(evt);
+            }
+        });
+
         txtFecha.setEditable(false);
 
         txtPlazo.setEditable(false);
@@ -293,10 +299,15 @@ public class JDConPrestamo extends javax.swing.JDialog {
     private void btnBuscarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPrestamoActionPerformed
         // TODO add your handling code here:
         Prestamo obj = new Prestamo();
+if(txtCedula.getText().equals("")){
+    JOptionPane.showMessageDialog(null, "Ingrese cedula");
 
+
+}else{
         if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion)) {
             JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
         }
+}
     }//GEN-LAST:event_btnBuscarPrestamoActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed
@@ -310,6 +321,14 @@ public class JDConPrestamo extends javax.swing.JDialog {
     private void txtCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuotaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCuotaActionPerformed
+
+    private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if((car<'0' || car>'9')){
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCedulaKeyTyped
 
     /**
      * @param args the command line arguments
