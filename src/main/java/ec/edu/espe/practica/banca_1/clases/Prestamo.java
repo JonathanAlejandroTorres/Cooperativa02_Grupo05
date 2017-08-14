@@ -24,6 +24,7 @@ public class Prestamo {
     private ResultSet resultado;
     private double monto;
     private int tiempo;
+    private double valorTotal;
     private double interes;
     private double cuotaPagar;
 
@@ -33,6 +34,7 @@ public class Prestamo {
         this.monto = 0.0;
         this.tiempo = 0;
         this.interes = 0;
+        this.valorTotal = 0.0;
         conn = new Conexion();
     }
 
@@ -109,13 +111,13 @@ public class Prestamo {
     }
 
     public double tablaAmortizacion(String tiemp, double valPrestamo, JTable Tabla, String cedula) {
-       Calendar cal= Calendar.getInstance();
-        String fecha=cal.get(cal.DATE)+"/"+(cal.get(cal.MONTH)+1)+"/"+cal.get(cal.YEAR);
+        Calendar cal = Calendar.getInstance();
+        String fecha = cal.get(cal.DATE) + "/" + (cal.get(cal.MONTH) + 1) + "/" + cal.get(cal.YEAR);
         int dia = cal.get(cal.DATE);
-        int mes2 = cal.get(cal.MONTH)+1;
+        int mes2 = cal.get(cal.MONTH) + 1;
         int anio = cal.get(cal.YEAR);
         boolean bandera = false;
-                
+
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Couta");
         model.addColumn("Fecha Pago");
@@ -136,6 +138,7 @@ public class Prestamo {
             interes = 0.16 / 12;
         }
         pago = valPrestamo * ((interes * (Math.pow((1 + interes), tiempo))) / ((Math.pow((1 + interes), tiempo)) - 1));
+        valorTotal=pago*tiempo;
         System.out.println("pago" + pago);
         cuotaPagar = pago;
         if (pago <= saldoactual(cedula) * 0.3) {
@@ -148,29 +151,27 @@ public class Prestamo {
             mes2++;
             model.addRow(Datos);
             Tabla.setModel(model);
-            boolean a = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)" +
-                "VALUES ('"+cedula+"',"+mes+",'"+fecha+"','0','0','0','"+valPrestamo+"')");
+            boolean a = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)"
+                    + "VALUES ('" + cedula + "'," + mes + ",'" + fecha + "','0','0','0','" + valPrestamo + "')");
             do {
 
                 System.out.println("que pasa ");
                 mes++;
                 Datos[0] = String.valueOf(mes);
-                Datos[1] = dia+"/" + mes2 + "/" +anio;
+                Datos[1] = dia + "/" + mes2 + "/" + anio;
                 cantint = valPrestamo * interes;
                 Datos[2] = String.valueOf(formd.format(pago - cantint));
                 Datos[3] = String.valueOf(formd.format(cantint));
                 Datos[4] = String.valueOf(formd.format(pago));
                 valPrestamo = valPrestamo - (pago - cantint);
                 Datos[5] = String.valueOf(formd.format(Math.abs(valPrestamo)));
-                //System.out.println("Dato 0:" +Integer.parseInt(Datos[0])+"Datos 1:"+formd.format(pago - cantint)+
-                //        "Datos 2:"+formd.format(cantint)+"Datos 3:"+formd.format(pago)+"Datos 4:"+formd.format(Math.abs(valPrestamo)));
-                boolean b = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)" +
-                "VALUES ('"+cedula+"',"+mes+",'"+(dia+"/" + mes2 + "/" +anio)+"','"+(pago - cantint)+"','"+cantint+"','"+pago+"','"+valPrestamo+"')");
-                System.out.println("estoooo"+"INSERT INTO amortizacion(cedula,mes,amortizacion,interes,pago,saldo)" +
-                "VALUES ("+cedula+","+mes+","+formd.format(pago - cantint)+","+formd.format(cantint)+","+formd.format(pago)+","+formd.format(valPrestamo)+")");
-                System.out.println("rttttt"+b);
-                Datos[5] = String.valueOf(formd.format(valPrestamo));
-                     if(mes2==12){
+                boolean b = conn.ejecutarSQL("INSERT INTO amortizacion(cedula,mes,fechaPago,amortizacion,interes,pago,saldo)"
+                        + "VALUES ('" + cedula + "'," + mes + ",'" + (dia + "/" + mes2 + "/" + anio) + "','" + (pago - cantint) + "','" + cantint + "','" + pago + "','" + valPrestamo + "')");
+                System.out.println("estoooo" + "INSERT INTO amortizacion(cedula,mes,amortizacion,interes,pago,saldo)"
+                        + "VALUES (" + cedula + "," + mes + "," + formd.format(pago - cantint) + "," + formd.format(cantint) + "," + formd.format(pago) + "," + formd.format(valPrestamo) + ")");
+                System.out.println("rttttt" + b);
+                
+                if (mes2 == 12) {
                     mes2 = 0;
                     anio = anio + 1;
                 }
@@ -184,7 +185,7 @@ public class Prestamo {
         return pago;
     }
 
-    public String guardarPrestamo(String cedula, double monto, int plazo,double interes,double pagoPrestamo) {
+    public String guardarPrestamo(String cedula, double monto, int plazo, double interes, double pagoPrestamo) {
         String data = "-1";
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
             resultado = conn.ejecutarSQLSelect("select MONTO_OTORGADO FROM prestamos WHERE CEDULA='" + cedula + "'");
@@ -201,13 +202,10 @@ public class Prestamo {
                 }
                 int idpr = Integer.parseInt(data) + 1;
 
-                            
-                
-                
-               boolean a= conn.ejecutarSQL("INSERT INTO prestamos(ID,CEDULA,MONTO_OTORGADO"
-                       + ",INTERES,MONTO_DEUDA,PLAZO,FECHA) VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + interes +","+pagoPrestamo+ "," + plazo + ",sysdate())");
-                System.out.println("quiero ver si guadra"+a); 
-               data = "Prestamo guardado";
+                boolean a = conn.ejecutarSQL("INSERT INTO prestamos(ID,CEDULA,MONTO_OTORGADO"
+                        + ",INTERES,CUOTA,PLAZO,MONTO_TOTAL,FECHA) VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + interes + "," + pagoPrestamo + "," + plazo + ","+valorTotal+",sysdate())");
+                System.out.println("quiero ver si guadra" + a);
+                data = "Prestamo guardado";
             } else {
                 data = "Este cliente ya tiene un prestamo de " + data;
             }
@@ -216,8 +214,6 @@ public class Prestamo {
         }
         return data;
     }
-
-  
 
     public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla) {
         boolean flag = false;
