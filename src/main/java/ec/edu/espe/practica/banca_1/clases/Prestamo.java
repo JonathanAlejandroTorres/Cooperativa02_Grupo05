@@ -42,8 +42,8 @@ public class Prestamo {
     public double montoPromedio(String cedula) {
 
         String[] Datos = new String[5];
-        Datos[0]="-1";
-        double res=0;
+        Datos[0] = "-1";
+        double res = 0;
 
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
             resultado = conn.ejecutarSQLSelect("select mov.codigo_movimiento,EXTRACT(MONTH from mov.fecha), "
@@ -62,9 +62,9 @@ public class Prestamo {
                 System.out.println("Saldo " + Datos[4]);
 
             }
-            if(Datos[0].equals("-1")){
-                res=-1;
-            }else{
+            if (Datos[0].equals("-1")) {
+                res = -1;
+            } else {
                 resultado = conn.ejecutarSQLSelect("select COUNT(*),SUM(saldo) from movimiento where  codigo_cuenta = "
                         + Datos[3] + " and EXTRACT(MONTH from fecha)= " + Datos[1] + " and EXTRACT(YEAR from fecha)=" + Datos[2] + "");
                 while (resultado.next()) {
@@ -76,12 +76,12 @@ public class Prestamo {
                 }
                 double dividendo = Double.parseDouble(Datos[1]);
                 double divisor = Double.parseDouble(Datos[0]);
-                res=dividendo / divisor;
+                res = dividendo / divisor;
             }
 
         } catch (SQLException ex) {
         }
-        
+
         return res;
 
     }
@@ -123,13 +123,13 @@ public class Prestamo {
         double pago = 0;
         tiempo = Integer.parseInt(tiemp);
         if (tiempo <= 12) {
-            interes = 0.1;
+            interes = 0.1/12;
         } else {
-            interes = 0.16;
+            interes = 0.16/12;
         }
-
-        pago = ((valPrestamo*interes) / (1-((double)Math.pow(1+interes, -tiempo))));
-        cuotaPagar=pago;
+        pago = valPrestamo * ((interes * (Math.pow((1 + interes), tiempo))) / ((Math.pow((1 + interes), tiempo)) - 1));
+        System.out.println("pago"+pago );
+        cuotaPagar = pago;
         if (pago <= saldoactual(cedula) * 0.3) {
             Datos[0] = String.valueOf(mes);
             Datos[1] = "";
@@ -139,6 +139,8 @@ public class Prestamo {
             model.addRow(Datos);
             Tabla.setModel(model);
             do {
+                
+                System.out.println("que pasa ");
                 mes++;
                 Datos[0] = String.valueOf(mes);
                 cantint = valPrestamo * interes;
@@ -151,8 +153,8 @@ public class Prestamo {
                 model.addRow(Datos);
                 Tabla.setModel(model);
             } while (Math.floor(valPrestamo) > 0);
-        }else{
-            bandera=true;
+        } else {
+            bandera = true;
         }
         return bandera;
     }
@@ -172,45 +174,45 @@ public class Prestamo {
                     data = resultado.getString(1);
                     System.out.println("ID MAXIMO=" + data);
                 }
-                int idpr=Integer.parseInt(data)+1;
-                
+                int idpr = Integer.parseInt(data) + 1;
+
                 conn.ejecutarSQL("INSERT INTO prestamos VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + monto + "," + plazo + ",sysdate())");
                 data = "Prestamo guardado";
             } else {
-                data = "Este cliente ya tiene un prestamo de "+data;
+                data = "Este cliente ya tiene un prestamo de " + data;
             }
 
         } catch (SQLException ex) {
         }
         return data;
     }
-    public boolean buscar(String cedula,JTextField txmonto,JTextField txcuota,JTextField txfecha,JTextField txplazo,JTextField txtasa,JTable Tabla){
-        boolean flag=false;
-        String mon="",plaz="";
+
+    public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla) {
+        boolean flag = false;
+        String mon = "", plaz = "";
         String data = "-1";
         DecimalFormat formd = new DecimalFormat("0.00");
-        
+
         try {
-           resultado = conn.ejecutarSQLSelect("select *from prestamos where cedula='"+cedula+"'");
-           while (resultado.next()) {
-                data=resultado.getString(1);
-                mon=resultado.getString(3);
-                plaz=resultado.getString(5);
-                txfecha.setText(resultado.getString(6));               
-           }
-           if(data.equals("-1")){
-               flag=true;
-           }else{
-               txmonto.setText(mon);
-               txplazo.setText(plaz);        
-               tablaAmortizacion(plaz,Double.parseDouble(mon),Tabla,cedula);
-               txcuota.setText(String.valueOf(formd.format(cuotaPagar)));
-               txtasa.setText(String.valueOf(interes*100)+"%");
-           }
+            resultado = conn.ejecutarSQLSelect("select *from prestamos where cedula='" + cedula + "'");
+            while (resultado.next()) {
+                data = resultado.getString(1);
+                mon = resultado.getString(3);
+                plaz = resultado.getString(5);
+                txfecha.setText(resultado.getString(6));
+            }
+            if (data.equals("-1")) {
+                flag = true;
+            } else {
+                txmonto.setText(mon);
+                txplazo.setText(plaz);
+                tablaAmortizacion(plaz, Double.parseDouble(mon), Tabla, cedula);
+                txcuota.setText(String.valueOf(formd.format(cuotaPagar)));
+                txtasa.setText(String.valueOf(interes * 100) + "%");
+            }
         } catch (SQLException ex) {
         }
-            
-        
+
         return flag;
     }
 }
