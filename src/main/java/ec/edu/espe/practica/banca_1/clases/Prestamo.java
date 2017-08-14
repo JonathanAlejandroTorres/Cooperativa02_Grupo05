@@ -107,7 +107,7 @@ public class Prestamo {
 
     }
 
-    public boolean tablaAmortizacion(String tiemp, double valPrestamo, JTable Tabla, String cedula) {
+    public double tablaAmortizacion(String tiemp, double valPrestamo, JTable Tabla, String cedula) {
         boolean bandera = false;
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Mes");
@@ -123,12 +123,12 @@ public class Prestamo {
         double pago = 0;
         tiempo = Integer.parseInt(tiemp);
         if (tiempo <= 12) {
-            interes = 0.1/12;
+            interes = 0.1 / 12;
         } else {
-            interes = 0.16/12;
+            interes = 0.16 / 12;
         }
         pago = valPrestamo * ((interes * (Math.pow((1 + interes), tiempo))) / ((Math.pow((1 + interes), tiempo)) - 1));
-        System.out.println("pago"+pago );
+        System.out.println("pago" + pago);
         cuotaPagar = pago;
         if (pago <= saldoactual(cedula) * 0.3) {
             Datos[0] = String.valueOf(mes);
@@ -139,7 +139,7 @@ public class Prestamo {
             model.addRow(Datos);
             Tabla.setModel(model);
             do {
-                
+
                 System.out.println("que pasa ");
                 mes++;
                 Datos[0] = String.valueOf(mes);
@@ -156,10 +156,10 @@ public class Prestamo {
         } else {
             bandera = true;
         }
-        return bandera;
+        return pago;
     }
 
-    public String guardarPrestamo(String cedula, double monto, int plazo) {
+    public String guardarPrestamo(String cedula, double monto, int plazo,String interes,double pagoPrestamo) {
         String data = "-1";
         try {// buscar el ultimo mes  importante SELECT * FROM `usuario` ORDER BY `etiqueta` DESC LIMIT 1
             resultado = conn.ejecutarSQLSelect("select MONTO_OTORGADO FROM prestamos WHERE CEDULA='" + cedula + "'");
@@ -176,7 +176,7 @@ public class Prestamo {
                 }
                 int idpr = Integer.parseInt(data) + 1;
 
-                conn.ejecutarSQL("INSERT INTO prestamos VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + monto + "," + plazo + ",sysdate())");
+                conn.ejecutarSQL("INSERT INTO prestamos VALUES (" + idpr + ",'" + cedula + "'," + monto + "," + pagoPrestamo +","+interes+ "," + plazo + ",sysdate())");
                 data = "Prestamo guardado";
             } else {
                 data = "Este cliente ya tiene un prestamo de " + data;
@@ -186,6 +186,8 @@ public class Prestamo {
         }
         return data;
     }
+
+  
 
     public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla) {
         boolean flag = false;

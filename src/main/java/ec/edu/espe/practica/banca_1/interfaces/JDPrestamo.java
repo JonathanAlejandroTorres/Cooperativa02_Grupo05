@@ -5,7 +5,6 @@
  */
 package ec.edu.espe.practica.banca_1.interfaces;
 
-
 import ec.edu.espe.practica.banca_1.clases.Prestamo;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JDPrestamo extends javax.swing.JDialog {
 
-  
     /**
      * Creates new form JDPrestamo
      */
@@ -290,22 +288,22 @@ public class JDPrestamo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSaldoActionPerformed
-       
+
     }//GEN-LAST:event_txtSaldoActionPerformed
 
     private void btnPrestamoSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSalirActionPerformed
-       
+
         this.dispose();//CERRAR VENTANA
     }//GEN-LAST:event_btnPrestamoSalirActionPerformed
 
     private void btnPrestamoSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrestamoSolicitarActionPerformed
 
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         double inter;
         jTAmortizacion.clearSelection();
         Prestamo objPrestamo = new Prestamo();
 
-double movi;
+        double movi;
         boolean flag;
         txtSaldoActual.setText(String.valueOf(objPrestamo.saldoactual(txtCedula.getText())));
         movi = objPrestamo.montoPromedio(txtCedula.getText());
@@ -313,12 +311,11 @@ double movi;
         if (movi == -1) {
             JOptionPane.showMessageDialog(rootPane, "El cliente no tiene movimientos");
         } else {
-            
-        
+
             //los meses
             String valPlazosMeses = jCBTiempoEstimado.getSelectedItem().toString();
             double valPlazosprome = objPrestamo.saldoactual(txtCedula.getText());
-            double valPago = Integer.parseInt(valPlazosMeses) * ((valPlazosprome*30)/100);
+            double valPago = Integer.parseInt(valPlazosMeses) * ((valPlazosprome * 30) / 100);
             if (Double.parseDouble(txtSaldo.getText()) >= (3 * movi)) {
                 JOptionPane.showMessageDialog(null, "Monto no disponible");
 
@@ -328,24 +325,31 @@ double movi;
                     JOptionPane.showMessageDialog(rootPane, "No puede pagar prestamo en ese tiempo");
 
                 } else {
-                    objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(), Double.parseDouble(txtSaldo.getText()), jTAmortizacion, txtCedula.getText());
+                    //Guardar datos 
+
+                    double monto=objPrestamo.tablaAmortizacion(jCBTiempoEstimado.getSelectedItem().toString(), Double.parseDouble(txtSaldo.getText()), jTAmortizacion, txtCedula.getText());
+
                     inter = objPrestamo.getInteres() * 100;
                     txtTasaInteres.setText(String.valueOf(inter) + "%");
                     if (inter == 0) {
                         txtEstadoPrestamo.setText("No Otorgado");
-                        
+
                         DefaultTableModel model = new DefaultTableModel();
                         jTAmortizacion.setModel(model);
                     } else {
                         txtEstadoPrestamo.setText("Otorgado");
                     }
+                    String h = objPrestamo.guardarPrestamo(txtCedula.getText(), Double.parseDouble(txtSaldo.getText()),
+                            Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString()), txtTasaInteres.getText(),monto);
+                    System.out.println("hhh" + h);
+                    //  objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
 
                 }
 
             }
 
         }
-        
+
     }//GEN-LAST:event_btnPrestamoSolicitarActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed
@@ -359,7 +363,7 @@ double movi;
     private void btnGuardarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPrestamoActionPerformed
         // TODO add your handling code here:
         Prestamo objPrestamo = new Prestamo();
-        JOptionPane.showMessageDialog(rootPane, objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
+      //  JOptionPane.showMessageDialog(rootPane, objPrestamo.guardarPrestamo(String.valueOf(txtCedula.getText()), Double.parseDouble(txtSaldo.getText()), Integer.parseInt(jCBTiempoEstimado.getSelectedItem().toString())));
     }//GEN-LAST:event_btnGuardarPrestamoActionPerformed
 
     /**
