@@ -299,15 +299,14 @@ public class JDConPrestamo extends javax.swing.JDialog {
     private void btnBuscarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPrestamoActionPerformed
         // TODO add your handling code here:
         Prestamo obj = new Prestamo();
-if(txtCedula.getText().equals("")){
-    JOptionPane.showMessageDialog(null, "Ingrese cedula");
+        if (txtCedula.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Ingrese cedula");
 
-
-}else{
-        if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion)) {
-            JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
+        } else {
+            if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion)) {
+                JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
+            }
         }
-}
     }//GEN-LAST:event_btnBuscarPrestamoActionPerformed
 
     private void txtTasaInteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTasaInteresActionPerformed
@@ -325,7 +324,7 @@ if(txtCedula.getText().equals("")){
     private void txtCedulaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaKeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if((car<'0' || car>'9')){
+        if ((car < '0' || car > '9')) {
             evt.consume();
         }
     }//GEN-LAST:event_txtCedulaKeyTyped

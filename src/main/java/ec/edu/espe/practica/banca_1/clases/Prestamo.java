@@ -217,7 +217,9 @@ public class Prestamo {
 
     public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla) {
         boolean flag = false;
-        String mon = "", plaz = "";
+        String interes="", cuota="",fecha="";
+        
+        String mon = "", plaz = "",pagointeres="";
         String data = "-1";
         DecimalFormat formd = new DecimalFormat("0.00");
 
@@ -226,21 +228,28 @@ public class Prestamo {
             while (resultado.next()) {
                 data = resultado.getString(1);
                 mon = resultado.getString(3);
-                plaz = resultado.getString(5);
-                txfecha.setText(resultado.getString(6));
+                interes=resultado.getString(4);
+                cuota = resultado.getString(5);
+                plaz=resultado.getString(6);
+                pagointeres=resultado.getString(7);
+               fecha=resultado.getString(8);
             }
             if (data.equals("-1")) {
                 flag = true;
             } else {
                 txmonto.setText(mon);
+                txfecha.setText(fecha);
                 txplazo.setText(plaz);
-                tablaAmortizacion(plaz, Double.parseDouble(mon), Tabla, cedula);
-                txcuota.setText(String.valueOf(formd.format(cuotaPagar)));
-                txtasa.setText(String.valueOf(interes * 100) + "%");
+              txcuota.setText(cuota);
+              txtasa.setText(interes);
+                
             }
         } catch (SQLException ex) {
         }
 
         return flag;
     }
+    
+    
+   
 }
