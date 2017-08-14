@@ -215,7 +215,7 @@ public class Prestamo {
         return data;
     }
 
-    public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla) {
+    public boolean buscar(String cedula, JTextField txmonto, JTextField txcuota, JTextField txfecha, JTextField txplazo, JTextField txtasa, JTable Tabla, JTextField total) {
         boolean flag = false;
         String interes="", cuota="",fecha="";
         
@@ -237,11 +237,12 @@ public class Prestamo {
             if (data.equals("-1")) {
                 flag = true;
             } else {
-                txmonto.setText(mon);
-                txfecha.setText(fecha);
-                txplazo.setText(plaz);
+              txmonto.setText(mon);
+              txfecha.setText(fecha);
+              txplazo.setText(plaz);
               txcuota.setText(cuota);
               txtasa.setText(interes);
+              total.setText(pagointeres);
                 
             }
         } catch (SQLException ex) {

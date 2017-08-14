@@ -316,7 +316,7 @@ public class JDConPrestamo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Ingrese cedula");
 
         } else {
-            if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion)) {
+            if (obj.buscar(txtCedula.getText(), txtMonto, txtCuota, txtFecha, txtPlazo, txtTasaInteres, jTAmortizacion,txtMontoTotalPagar)) {
                 JOptionPane.showMessageDialog(rootPane, "No hay prestamos con este numero de cedula");
             }
         }
