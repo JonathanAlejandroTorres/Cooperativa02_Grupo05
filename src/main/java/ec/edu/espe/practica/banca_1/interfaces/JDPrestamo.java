@@ -137,13 +137,13 @@ public class JDPrestamo extends javax.swing.JDialog {
 
         jTAmortizacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mes", "Amortización", "Interés", "Pago", "Saldo"
+                "Cuota", "Fecha Pago", "Amortización", "Interés", "Pago", "Saldo"
             }
         ));
         jScrollPane1.setViewportView(jTAmortizacion);
